@@ -174,10 +174,10 @@ Partial Class Form1
         Me.rbXray.Checked = True
         Me.rbXray.Location = New System.Drawing.Point(8, 19)
         Me.rbXray.Name = "rbXray"
-        Me.rbXray.Size = New System.Drawing.Size(46, 17)
+        Me.rbXray.Size = New System.Drawing.Size(57, 17)
         Me.rbXray.TabIndex = 13
         Me.rbXray.TabStop = True
-        Me.rbXray.Text = "Xray"
+        Me.rbXray.Text = "X-RAY"
         Me.rbXray.UseVisualStyleBackColor = True
         '
         'btnPrint

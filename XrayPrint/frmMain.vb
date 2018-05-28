@@ -6,7 +6,7 @@ Imports System.Data.SqlClient
 
 Public Class Form1
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
-        getContainer(txtBooking.Text.Trim)
+        getContainer(txtBooking.Text.Trim.ToUpper)
     End Sub
 
     Sub getContainer(vBooking As String)
@@ -117,7 +117,7 @@ Public Class Form1
 
     Private Sub fill_to_excel(vContainer As String, vPosition As String,
                               vTerminal As String, vPlate As String,
-                              vType As String)
+                              vType As String, vBooking As String)
         Dim xlsWorkBook As Microsoft.Office.Interop.Excel.Workbook
         Dim xlsWorkSheet As Microsoft.Office.Interop.Excel.Worksheet
         Dim xls As New Microsoft.Office.Interop.Excel.Application
@@ -131,6 +131,7 @@ Public Class Form1
 
         xlsWorkSheet.Cells(5, 2) = Now()
         xlsWorkSheet.Cells(6, 2) = vType
+        xlsWorkSheet.Cells(7, 2) = vBooking
         xlsWorkSheet.Cells(7, 10) = vPlate
         xlsWorkSheet.Cells(6, 10) = vTerminal
         xlsWorkSheet.Cells(9, 10) = vPosition
@@ -157,6 +158,11 @@ Public Class Form1
     End Sub
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+
+        start_print_process()
+    End Sub
+
+    Sub start_print_process()
         If txtPlateNumber.Text = "" Then
             MsgBox("Plate number is required, please enter!!")
             txtPlateNumber.Focus()
@@ -166,15 +172,18 @@ Public Class Form1
         fill_to_excel(lblContainer.Text.Trim,
                       lblLocation.Text.Trim,
                       IIf(rbA0.Checked, "A0", "B1"),
-                      txtPlateNumber.Text.Trim,
-                      IIf(rbXray.Checked, "X-RAY", "เปิดตรวจ"))
+                      txtPlateNumber.Text.Trim.ToUpper,
+                      IIf(rbXray.Checked, "X-RAY", "เปิดตรวจ"),
+                      txtBooking.Text.Trim.ToUpper)
 
         print_excel()
+
+        txtPlateNumber.Text = ""
+
         'If PrintDialog1.ShowDialog = DialogResult.OK Then
         '    ' print the document
         '    print_excel()
         'End If
-
     End Sub
 
 
@@ -219,5 +228,12 @@ Public Class Form1
             getContainer(txtBooking.Text.Trim)
         End If
 
+    End Sub
+
+
+    Private Sub txtPlateNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtPlateNumber.KeyPress
+        If e.KeyChar = Chr(13) Then
+            start_print_process()
+        End If
     End Sub
 End Class
