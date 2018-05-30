@@ -1,40 +1,51 @@
 ﻿Imports System.Data.Odbc
 Imports System.Data.OleDb
 Imports System.Data.SqlClient
+Imports System.Reflection
 'Imports Data.OleDb
 'Imports Microsoft.Data.Odbc
 
 Public Class Form1
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
-        getContainer(txtBooking.Text.Trim.ToUpper)
+        Dim vBooking As String
+        If txtContainer.Text <> "" Then
+            vBooking = getBooking(txtContainer.Text.Trim.ToUpper)
+        Else
+            vBooking = txtBooking.Text.Trim.ToUpper
+        End If
+
+        getContainer(vBooking)
     End Sub
 
+
     Sub getContainer(vBooking As String)
-        If vBooking = "" Then
-            MsgBox("Booking is required, please enter booking number")
-            Exit Sub
-        End If
+        'If vBooking = "" Then
+        '    MsgBox("Booking is required, please enter booking number")
+        '    Exit Sub
+        'End If
         clear()
         Dim dtBooking As DataTable
-        dtBooking = accbynodes(vBooking)
+        dtBooking = getContainers(vBooking)
         Dim x As Integer = dtBooking.Rows.Count
         lblRecord.Text = Str(x) + " Container(s)"
         DataGridView1.DataSource = dtBooking
     End Sub
 
     Sub clear()
+        txtContainer.Text = ""
         lblRecord.Text = ""
         txtPlateNumber.Text = ""
         lblContainer.Text = ""
         lblLocation.Text = ""
         rbA0.Checked = True
         rbXray.Checked = True
+        'DataGridView1.DataSource = Nothing
     End Sub
 
-    Friend Function accbynodes(ByVal booking As String) As DataTable
+    Friend Function getContainers(ByVal booking As String) As DataTable
 
         Dim cmd As New OdbcCommand
-        Dim sql As String
+        Dim sqlBooking As String
         Dim da As New OdbcDataAdapter
         'Readconnectionstring()
         'Dim con As New OdbcConnection("Server='" & server & "';DATABASE='" & paraudstat.compid & "';Integrated Security='SSPI';")
@@ -48,16 +59,36 @@ Public Class Form1
         con.Open()
 
 
-        sql = "SELECT 
+        'sql = "SELECT 
+        '        BOOKLIST.CNID94 as container,
+        '        BOOKLIST.HIDT94 as date_in, 
+        '        CTHNDL09.HDDT03 as date_out,
+        '        BOOKLIST.CNPT03 as location,
+        '        BOOKLIST.LYND03 as line,
+        '        BOOKLIST.ORGV05 as agent,
+        '        BOOKLIST.CNIS03 as iso,
+        '        BOOKLIST.CNLL03 as size,
+        '        BOOKLIST.ORRF93 as Booking,
+        '        BOOKLIST.VMID01 as vessel_code,
+        '        BOOKLIST.MVVA47 as vessel_name,
+        '        BOOKLIST.MVV247 as vessel_type,
+        '        BOOKLIST.RSIN01 as voy_in, 
+        '        BOOKLIST.RSUT01 as voy_out, 
+        '        BOOKLIST.OP0103 
+        '        FROM S2114C2V.LCB1DAT.BOOKLIST BOOKLIST
+        '        INNER JOIN CTHNDL09 ON BOOKLIST.HDID94 = CTHNDL09.HDID03
+        '        where BOOKLIST.ORRF93 = ? "
+
+        sqlBooking = "SELECT 
                 BOOKLIST.CNID94 as container,
                 BOOKLIST.HIDT94 as date_in, 
-                CTHNDL09.HDDT03 as date_out,
                 BOOKLIST.CNPT03 as location,
+                BOOKLIST.ORRF93 as Booking,
                 BOOKLIST.LYND03 as line,
                 BOOKLIST.ORGV05 as agent,
                 BOOKLIST.CNIS03 as iso,
                 BOOKLIST.CNLL03 as size,
-                BOOKLIST.ORRF93 as Booking,
+                
                 BOOKLIST.VMID01 as vessel_code,
                 BOOKLIST.MVVA47 as vessel_name,
                 BOOKLIST.MVV247 as vessel_type,
@@ -65,9 +96,7 @@ Public Class Form1
                 BOOKLIST.RSUT01 as voy_out, 
                 BOOKLIST.OP0103 
                 FROM S2114C2V.LCB1DAT.BOOKLIST BOOKLIST
-                INNER JOIN CTHNDL09 ON BOOKLIST.HDID94 = CTHNDL09.HDID03
                 where BOOKLIST.ORRF93 = ? "
-
 
         ' Create an OleDbDataAdapter object
         Dim adapter As OdbcDataAdapter = New OdbcDataAdapter()
@@ -83,19 +112,99 @@ Public Class Form1
         'adapter.Fill(ds)
 
         With cmd
-            .CommandText = sql
+
             .CommandType = CommandType.Text
             .Connection = con
             .CommandTimeout = 100
+
+            .CommandText = sqlBooking
             .Parameters.Add(New OdbcParameter("booking", booking))
 
         End With
 
 
+
+        'In case Search Booking by Container
+
         da.SelectCommand = cmd
         da.Fill(ds)
 
+
+
+
+
         Return ds
+
+
+    End Function
+
+
+    Friend Function getBooking(container As String) As String
+
+        Dim cmd As New OdbcCommand
+        Dim sqlContainer As String
+        Dim da As New OdbcDataAdapter
+
+        'OdbcConnection
+        Dim con As OdbcConnection
+        Dim connectionString As String
+        connectionString = "DSN=CTCS1;UserID=OPSCC;Password=OPSCC21;DataCompression=True;"
+        con = New OdbcConnection(connectionString)
+        con.Open()
+
+
+
+        sqlContainer = "SELECT 
+                BOOKLIST.CNID94 as container,
+                BOOKLIST.HIDT94 as date_in, 
+                BOOKLIST.CNPT03 as location,
+                BOOKLIST.ORRF93 as Booking,
+                BOOKLIST.LYND03 as line,
+                BOOKLIST.ORGV05 as agent,
+                BOOKLIST.CNIS03 as iso,
+                BOOKLIST.CNLL03 as size,  
+                BOOKLIST.VMID01 as vessel_code,
+                BOOKLIST.MVVA47 as vessel_name,
+                BOOKLIST.MVV247 as vessel_type,
+                BOOKLIST.RSIN01 as voy_in, 
+                BOOKLIST.RSUT01 as voy_out, 
+                BOOKLIST.OP0103 
+                FROM S2114C2V.LCB1DAT.BOOKLIST BOOKLIST
+                where BOOKLIST.CNID94 = ? "
+
+
+
+        ' Create an OleDbDataAdapter object
+        Dim adapter As OdbcDataAdapter = New OdbcDataAdapter()
+
+        With cmd
+
+            .CommandType = CommandType.Text
+            .Connection = con
+            .CommandTimeout = 100
+
+            .CommandText = sqlContainer
+            .Parameters.Add(New OdbcParameter("container", container))
+
+        End With
+        'In case Search Booking by Container
+        Dim dsContainer As New DataTable
+        da.SelectCommand = cmd
+        da.Fill(dsContainer)
+
+
+        Dim lastRow As DataRow
+        lastRow = dsContainer.Rows.Cast(Of DataRow)().LastOrDefault()
+
+        If lastRow Is Nothing Then
+            'The table contains no rows.
+            Return ""
+        Else
+            'Use lastRow here.
+            Return lastRow.Item("booking").trim()
+
+        End If
+
 
 
     End Function
@@ -105,7 +214,8 @@ Public Class Form1
         Dim i As Integer
         i = DataGridView1.CurrentRow.Index
         lblContainer.Text = DataGridView1.Item(0, i).Value
-        lblLocation.Text = DataGridView1.Item(3, i).Value
+        lblLocation.Text = DataGridView1.Item(2, i).Value
+        lblBooking.Text = DataGridView1.Item(3, i).Value
 
         Dim vAgent As String = Trim(DataGridView1.Item(5, i).Value)
         rbA0.Checked = True
@@ -180,7 +290,7 @@ Public Class Form1
                       IIf(rbA0.Checked, "A0", "B1"),
                       txtPlateNumber.Text.Trim.ToUpper,
                       IIf(rbXray.Checked, "X-RAY", "เปิดตรวจ"),
-                      txtBooking.Text.Trim.ToUpper)
+                      lblBooking.Text.Trim)
 
         print_excel()
 
@@ -226,7 +336,7 @@ Public Class Form1
     End Sub
 
     Private Sub txtBooking_TextChanged(sender As Object, e As EventArgs) Handles txtBooking.TextChanged
-
+        txtContainer.Text = ""
     End Sub
 
     Private Sub txtBooking_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtBooking.KeyPress
@@ -241,5 +351,28 @@ Public Class Form1
         If e.KeyChar = Chr(13) Then
             start_print_process()
         End If
+    End Sub
+
+    Private Sub txtContainer_TextChanged(sender As Object, e As EventArgs) Handles txtContainer.TextChanged
+        txtBooking.Text = ""
+    End Sub
+
+    Private Sub txtContainer_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtContainer.KeyPress
+        If e.KeyChar = Chr(13) Then
+            Dim vBooking As String
+            vBooking = getBooking(txtContainer.Text.Trim.ToUpper)
+            getContainer(vBooking)
+        End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        clear()
+    End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Dim versionNumber As Version
+
+        versionNumber = Assembly.GetExecutingAssembly().GetName().Version
+        Me.Text = Me.Text & " version :" & versionNumber.ToString
     End Sub
 End Class

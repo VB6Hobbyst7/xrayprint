@@ -23,6 +23,8 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtContainer = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.btnQuery = New System.Windows.Forms.Button()
         Me.txtBooking = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -44,6 +46,9 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.lblRecord = New System.Windows.Forms.Label()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.lblBooking = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -53,19 +58,38 @@ Partial Class Form1
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Button1)
+        Me.GroupBox1.Controls.Add(Me.txtContainer)
+        Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.btnQuery)
         Me.GroupBox1.Controls.Add(Me.txtBooking)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 1)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(481, 68)
+        Me.GroupBox1.Size = New System.Drawing.Size(481, 111)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Booking Info"
         '
+        'txtContainer
+        '
+        Me.txtContainer.Location = New System.Drawing.Point(67, 71)
+        Me.txtContainer.Name = "txtContainer"
+        Me.txtContainer.Size = New System.Drawing.Size(200, 20)
+        Me.txtContainer.TabIndex = 4
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(6, 78)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(52, 13)
+        Me.Label6.TabIndex = 3
+        Me.Label6.Text = "Container"
+        '
         'btnQuery
         '
-        Me.btnQuery.Location = New System.Drawing.Point(266, 29)
+        Me.btnQuery.Location = New System.Drawing.Point(274, 30)
         Me.btnQuery.Name = "btnQuery"
         Me.btnQuery.Size = New System.Drawing.Size(75, 23)
         Me.btnQuery.TabIndex = 2
@@ -74,7 +98,7 @@ Partial Class Form1
         '
         'txtBooking
         '
-        Me.txtBooking.Location = New System.Drawing.Point(59, 29)
+        Me.txtBooking.Location = New System.Drawing.Point(67, 30)
         Me.txtBooking.Name = "txtBooking"
         Me.txtBooking.Size = New System.Drawing.Size(200, 20)
         Me.txtBooking.TabIndex = 1
@@ -91,13 +115,15 @@ Partial Class Form1
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(12, 91)
+        Me.DataGridView1.Location = New System.Drawing.Point(12, 133)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(672, 399)
+        Me.DataGridView1.Size = New System.Drawing.Size(672, 357)
         Me.DataGridView1.TabIndex = 1
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.lblBooking)
+        Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Controls.Add(Me.GroupBox4)
         Me.GroupBox2.Controls.Add(Me.GroupBox3)
         Me.GroupBox2.Controls.Add(Me.btnPrint)
@@ -107,7 +133,7 @@ Partial Class Form1
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.lblLocation)
         Me.GroupBox2.Controls.Add(Me.lblContainer)
-        Me.GroupBox2.Location = New System.Drawing.Point(693, 75)
+        Me.GroupBox2.Location = New System.Drawing.Point(690, 12)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(218, 415)
         Me.GroupBox2.TabIndex = 2
@@ -118,7 +144,7 @@ Partial Class Form1
         '
         Me.GroupBox4.Controls.Add(Me.rbB1)
         Me.GroupBox4.Controls.Add(Me.rbA0)
-        Me.GroupBox4.Location = New System.Drawing.Point(113, 67)
+        Me.GroupBox4.Location = New System.Drawing.Point(113, 88)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(89, 69)
         Me.GroupBox4.TabIndex = 14
@@ -151,7 +177,7 @@ Partial Class Form1
         '
         Me.GroupBox3.Controls.Add(Me.rbCheck)
         Me.GroupBox3.Controls.Add(Me.rbXray)
-        Me.GroupBox3.Location = New System.Drawing.Point(10, 67)
+        Me.GroupBox3.Location = New System.Drawing.Point(10, 88)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(97, 69)
         Me.GroupBox3.TabIndex = 13
@@ -182,7 +208,7 @@ Partial Class Form1
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(9, 202)
+        Me.btnPrint.Location = New System.Drawing.Point(9, 223)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(193, 35)
         Me.btnPrint.TabIndex = 9
@@ -192,7 +218,7 @@ Partial Class Form1
         'txtPlateNumber
         '
         Me.txtPlateNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPlateNumber.Location = New System.Drawing.Point(9, 162)
+        Me.txtPlateNumber.Location = New System.Drawing.Point(9, 183)
         Me.txtPlateNumber.Name = "txtPlateNumber"
         Me.txtPlateNumber.Size = New System.Drawing.Size(194, 29)
         Me.txtPlateNumber.TabIndex = 8
@@ -200,7 +226,7 @@ Partial Class Form1
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 146)
+        Me.Label5.Location = New System.Drawing.Point(6, 167)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(103, 13)
         Me.Label5.TabIndex = 7
@@ -247,7 +273,7 @@ Partial Class Form1
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(12, 75)
+        Me.Label4.Location = New System.Drawing.Point(9, 115)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(37, 13)
         Me.Label4.TabIndex = 3
@@ -256,7 +282,7 @@ Partial Class Form1
         'lblRecord
         '
         Me.lblRecord.AutoSize = True
-        Me.lblRecord.Location = New System.Drawing.Point(55, 75)
+        Me.lblRecord.Location = New System.Drawing.Point(52, 115)
         Me.lblRecord.Name = "lblRecord"
         Me.lblRecord.Size = New System.Drawing.Size(13, 13)
         Me.lblRecord.TabIndex = 4
@@ -265,6 +291,34 @@ Partial Class Form1
         'PrintDialog1
         '
         Me.PrintDialog1.UseEXDialog = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(355, 30)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 5
+        Me.Button1.Text = "Clear"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(7, 72)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(31, 13)
+        Me.Label7.TabIndex = 15
+        Me.Label7.Text = "B/L :"
+        '
+        'lblBooking
+        '
+        Me.lblBooking.AutoSize = True
+        Me.lblBooking.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblBooking.Location = New System.Drawing.Point(70, 67)
+        Me.lblBooking.Name = "lblBooking"
+        Me.lblBooking.Size = New System.Drawing.Size(25, 24)
+        Me.lblBooking.TabIndex = 16
+        Me.lblBooking.Text = "..."
         '
         'Form1
         '
@@ -314,4 +368,9 @@ Partial Class Form1
     Friend WithEvents Label4 As Label
     Friend WithEvents lblRecord As Label
     Friend WithEvents PrintDialog1 As PrintDialog
+    Friend WithEvents txtContainer As TextBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents lblBooking As Label
+    Friend WithEvents Label7 As Label
 End Class
