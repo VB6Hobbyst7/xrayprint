@@ -2,8 +2,10 @@
 Imports System.Data.OleDb
 Imports System.Data.SqlClient
 Imports System.Reflection
+Imports Microsoft.Office
 'Imports Data.OleDb
 'Imports Microsoft.Data.Odbc
+Imports outlook = Microsoft.Office.Interop.Outlook
 
 Public Class Form1
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
@@ -284,6 +286,35 @@ Public Class Form1
             txtPlateNumber.Focus()
             Exit Sub
         End If
+        Dim vBody As String = "<h1>X-RAY Request : " & lblContainer.Text.Trim & "</h1> <br>
+                                   <table border=""1"">
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Value</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Container:</td>
+                                            <td>" & lblContainer.Text.Trim & "</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Terminal:</td>
+                                            <td>" & IIf(rbA0.Checked, "A0", "B1") & "</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Truck plate:</td>
+                                            <td>" & txtPlateNumber.Text.Trim.ToUpper & "</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Position:</td>
+                                            <td>" & lblLocation.Text.Trim & "</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Request Date:</td>
+                                            <td>" & Now() & "</td>
+                                        </tr>
+                                    </table><br><hr>
+                                    <b>Note : Do not reply. This message sent from auto Cashier system.</b>"
 
         fill_to_excel(lblContainer.Text.Trim,
                       lblLocation.Text.Trim,
@@ -296,10 +327,28 @@ Public Class Form1
 
         txtPlateNumber.Text = ""
 
-        'If PrintDialog1.ShowDialog = DialogResult.OK Then
-        '    ' print the document
-        '    print_excel()
-        'End If
+        'SendKeys Email
+        If chkSendmail.Checked Then
+
+            Dim mailTo As String
+            If My.Computer.FileSystem.FileExists("mail_list.txt") Then
+                mailTo = My.Computer.FileSystem.ReadAllText("mail_list.txt")
+                If mailTo = "" Then
+                    MsgBox("No email list in file")
+                    Exit Sub
+                End If
+                setEmailSend("Xray Request :" & lblContainer.Text.Trim,
+                              vBody,
+                              mailTo,
+                              "",
+                             "",
+                             "")
+            Else
+                MsgBox("Not found mail_list.txt , syytem will not send mail")
+            End If
+
+        End If
+
     End Sub
 
 
@@ -367,6 +416,7 @@ Public Class Form1
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         clear()
+        'setEmailSend("Test Subject", "<b1><u>Test Body</u></b1>", "chutchai@lcb1.com", "", "", "test Display")
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -374,5 +424,41 @@ Public Class Form1
 
         versionNumber = Assembly.GetExecutingAssembly().GetName().Version
         Me.Text = Me.Text & " version :" & versionNumber.ToString
+    End Sub
+
+
+    Private Sub setEmailSend(sSubject As String, sBody As String,
+                             sTo As String, sCC As String,
+                             sFilename As String, sDisplayname As String)
+        Dim oApp As Interop.Outlook._Application
+        oApp = New Interop.Outlook.Application
+
+        Dim oMsg As Interop.Outlook._MailItem
+        oMsg = oApp.CreateItem(Interop.Outlook.OlItemType.olMailItem)
+
+        oMsg.Subject = sSubject
+        'oMsg.Body = sBody
+        oMsg.HTMLBody = sBody
+
+        oMsg.To = sTo
+        oMsg.CC = sCC
+
+        oMsg.BodyFormat = outlook.OlBodyFormat.olFormatHTML
+
+
+        Dim strS As String = sFilename
+        Dim strN As String = sDisplayname
+        If sFilename <> "" Then
+            Dim sBodyLen As Integer = Int(sBody.Length)
+            Dim oAttachs As Interop.Outlook.Attachments = oMsg.Attachments
+            Dim oAttach As Interop.Outlook.Attachment
+
+            oAttach = oAttachs.Add(strS, , sBodyLen, strN)
+
+        End If
+
+        oMsg.Send()
+        MessageBox.Show("Email Send successful...", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
     End Sub
 End Class

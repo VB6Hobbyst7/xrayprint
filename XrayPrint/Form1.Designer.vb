@@ -23,6 +23,7 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.txtContainer = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btnQuery = New System.Windows.Forms.Button()
@@ -30,6 +31,8 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.lblBooking = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.rbB1 = New System.Windows.Forms.RadioButton()
         Me.rbA0 = New System.Windows.Forms.RadioButton()
@@ -46,9 +49,7 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.lblRecord = New System.Windows.Forms.Label()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.lblBooking = New System.Windows.Forms.Label()
+        Me.chkSendmail = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -70,6 +71,15 @@ Partial Class Form1
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Booking Info"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(355, 30)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 5
+        Me.Button1.Text = "Clear"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'txtContainer
         '
@@ -122,6 +132,7 @@ Partial Class Form1
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.chkSendmail)
         Me.GroupBox2.Controls.Add(Me.lblBooking)
         Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Controls.Add(Me.GroupBox4)
@@ -139,6 +150,25 @@ Partial Class Form1
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Fast Lane Print"
+        '
+        'lblBooking
+        '
+        Me.lblBooking.AutoSize = True
+        Me.lblBooking.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblBooking.Location = New System.Drawing.Point(70, 67)
+        Me.lblBooking.Name = "lblBooking"
+        Me.lblBooking.Size = New System.Drawing.Size(25, 24)
+        Me.lblBooking.TabIndex = 16
+        Me.lblBooking.Text = "..."
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(7, 72)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(31, 13)
+        Me.Label7.TabIndex = 15
+        Me.Label7.Text = "B/L :"
         '
         'GroupBox4
         '
@@ -292,33 +322,17 @@ Partial Class Form1
         '
         Me.PrintDialog1.UseEXDialog = True
         '
-        'Button1
+        'chkSendmail
         '
-        Me.Button1.Location = New System.Drawing.Point(355, 30)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 5
-        Me.Button1.Text = "Clear"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(7, 72)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(31, 13)
-        Me.Label7.TabIndex = 15
-        Me.Label7.Text = "B/L :"
-        '
-        'lblBooking
-        '
-        Me.lblBooking.AutoSize = True
-        Me.lblBooking.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblBooking.Location = New System.Drawing.Point(70, 67)
-        Me.lblBooking.Name = "lblBooking"
-        Me.lblBooking.Size = New System.Drawing.Size(25, 24)
-        Me.lblBooking.TabIndex = 16
-        Me.lblBooking.Text = "..."
+        Me.chkSendmail.AutoSize = True
+        Me.chkSendmail.Checked = True
+        Me.chkSendmail.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkSendmail.Location = New System.Drawing.Point(13, 262)
+        Me.chkSendmail.Name = "chkSendmail"
+        Me.chkSendmail.Size = New System.Drawing.Size(79, 17)
+        Me.chkSendmail.TabIndex = 17
+        Me.chkSendmail.Text = "Send Email"
+        Me.chkSendmail.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -373,4 +387,5 @@ Partial Class Form1
     Friend WithEvents Button1 As Button
     Friend WithEvents lblBooking As Label
     Friend WithEvents Label7 As Label
+    Friend WithEvents chkSendmail As CheckBox
 End Class
