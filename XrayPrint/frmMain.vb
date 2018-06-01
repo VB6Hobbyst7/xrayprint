@@ -41,6 +41,7 @@ Public Class Form1
         lblLocation.Text = ""
         rbA0.Checked = True
         rbXray.Checked = True
+        txtSpecial.Text = ""
         'DataGridView1.DataSource = Nothing
     End Sub
 
@@ -314,10 +315,13 @@ Public Class Form1
                                             <td>" & Now() & "</td>
                                         </tr>
                                     </table><br><hr>
+                                    <u><h3>Special Request.</h3></u>
+                                    " & IIf(txtSpecial.Text = "", "N/A", txtSpecial.Text) & "
+                                    <hr>
                                     <b>Note : Do not reply. This message sent from auto Cashier system.</b>"
 
         Dim vMailSubject As String = "Fast-lane " & IIf(rbXray.Checked, "X-RAY", "เปิดตรวจ") & " request :" & lblContainer.Text.Trim & " " &
-                                    " --- truck : " & txtPlateNumber.Text.Trim.ToUpper & " [" & IIf(rbA0.Checked, "A0", "B1") & "]"
+                                    " --- truck : " & txtPlateNumber.Text.Trim.ToUpper & " [" & IIf(rbA0.Checked, "A0", "B1") & "] " & IIf(txtSpecial.Text = "", "", "*** Special Request ***")
 
         fill_to_excel(lblContainer.Text.Trim,
                       lblLocation.Text.Trim,

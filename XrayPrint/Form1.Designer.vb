@@ -31,6 +31,7 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkSendmail = New System.Windows.Forms.CheckBox()
         Me.lblBooking = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -49,7 +50,8 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.lblRecord = New System.Windows.Forms.Label()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
-        Me.chkSendmail = New System.Windows.Forms.CheckBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtSpecial = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -132,6 +134,8 @@ Partial Class Form1
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.txtSpecial)
+        Me.GroupBox2.Controls.Add(Me.Label8)
         Me.GroupBox2.Controls.Add(Me.chkSendmail)
         Me.GroupBox2.Controls.Add(Me.lblBooking)
         Me.GroupBox2.Controls.Add(Me.Label7)
@@ -146,10 +150,22 @@ Partial Class Form1
         Me.GroupBox2.Controls.Add(Me.lblContainer)
         Me.GroupBox2.Location = New System.Drawing.Point(690, 12)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(218, 415)
+        Me.GroupBox2.Size = New System.Drawing.Size(218, 478)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Fast Lane Print"
+        '
+        'chkSendmail
+        '
+        Me.chkSendmail.AutoSize = True
+        Me.chkSendmail.Checked = True
+        Me.chkSendmail.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkSendmail.Location = New System.Drawing.Point(13, 262)
+        Me.chkSendmail.Name = "chkSendmail"
+        Me.chkSendmail.Size = New System.Drawing.Size(79, 17)
+        Me.chkSendmail.TabIndex = 17
+        Me.chkSendmail.Text = "Send Email"
+        Me.chkSendmail.UseVisualStyleBackColor = True
         '
         'lblBooking
         '
@@ -322,17 +338,22 @@ Partial Class Form1
         '
         Me.PrintDialog1.UseEXDialog = True
         '
-        'chkSendmail
+        'Label8
         '
-        Me.chkSendmail.AutoSize = True
-        Me.chkSendmail.Checked = True
-        Me.chkSendmail.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkSendmail.Location = New System.Drawing.Point(13, 262)
-        Me.chkSendmail.Name = "chkSendmail"
-        Me.chkSendmail.Size = New System.Drawing.Size(79, 17)
-        Me.chkSendmail.TabIndex = 17
-        Me.chkSendmail.Text = "Send Email"
-        Me.chkSendmail.UseVisualStyleBackColor = True
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(10, 282)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(91, 13)
+        Me.Label8.TabIndex = 18
+        Me.Label8.Text = "Special Request :"
+        '
+        'txtSpecial
+        '
+        Me.txtSpecial.Location = New System.Drawing.Point(12, 304)
+        Me.txtSpecial.Multiline = True
+        Me.txtSpecial.Name = "txtSpecial"
+        Me.txtSpecial.Size = New System.Drawing.Size(190, 163)
+        Me.txtSpecial.TabIndex = 19
         '
         'Form1
         '
@@ -388,4 +409,6 @@ Partial Class Form1
     Friend WithEvents lblBooking As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents chkSendmail As CheckBox
+    Friend WithEvents txtSpecial As TextBox
+    Friend WithEvents Label8 As Label
 End Class
