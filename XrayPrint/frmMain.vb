@@ -286,7 +286,7 @@ Public Class Form1
             txtPlateNumber.Focus()
             Exit Sub
         End If
-        Dim vBody As String = "<h1>X-RAY Request : " & lblContainer.Text.Trim & "</h1> <br>
+        Dim vBody As String = "<h1>Request for : " & IIf(rbXray.Checked, "X-RAY", "เปิดตรวจ") & "  of " & lblContainer.Text.Trim & "</h1> <br>
                                    <table border=""1"">
                                         <tr>
                                             <th>Item</th>
@@ -316,6 +316,9 @@ Public Class Form1
                                     </table><br><hr>
                                     <b>Note : Do not reply. This message sent from auto Cashier system.</b>"
 
+        Dim vMailSubject As String = "Fast-lane " & IIf(rbXray.Checked, "X-RAY", "เปิดตรวจ") & " request :" & lblContainer.Text.Trim & " " &
+                                    " --- truck : " & txtPlateNumber.Text.Trim.ToUpper & " [" & IIf(rbA0.Checked, "A0", "B1") & "]"
+
         fill_to_excel(lblContainer.Text.Trim,
                       lblLocation.Text.Trim,
                       IIf(rbA0.Checked, "A0", "B1"),
@@ -337,7 +340,9 @@ Public Class Form1
                     MsgBox("No email list in file")
                     Exit Sub
                 End If
-                setEmailSend("Xray Request :" & lblContainer.Text.Trim,
+
+
+                setEmailSend(vMailSubject,
                               vBody,
                               mailTo,
                               "",
