@@ -282,8 +282,8 @@ Public Class Form1
     End Sub
 
     Sub start_print_process()
-        If txtPlateNumber.Text = "" Then
-            MsgBox("Plate number is required, please enter!!")
+        If txtPlateNumber.Text = "" Or lblContainer.Text.Trim = "" Then
+            MsgBox("Container and Plate number are required, please enter!!")
             txtPlateNumber.Focus()
             Exit Sub
         End If
@@ -469,5 +469,41 @@ Public Class Form1
         oMsg.Send()
         MessageBox.Show("Email Send successful...", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
+    End Sub
+
+    Private Sub DataGridView1_RowEnter(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.RowEnter
+
+    End Sub
+
+    Private Sub DataGridView1_RowLeave(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.RowLeave
+        'Try
+        '    Dim i As Integer
+        '    i = DataGridView1.CurrentRow.Index
+        '    lblContainer.Text = DataGridView1.Item(0, i).Value
+        '    lblLocation.Text = DataGridView1.Item(2, i).Value
+        '    lblBooking.Text = DataGridView1.Item(3, i).Value
+
+        '    Dim vAgent As String = Trim(DataGridView1.Item(5, i).Value)
+        '    rbA0.Checked = True
+        '    rbB1.Checked = IIf(vAgent = "MSK1" Or vAgent = "MSC", True, False)
+        'Catch ex As Exception
+
+        'End Try
+    End Sub
+
+    Private Sub lblContainer_TextChanged(sender As Object, e As EventArgs) Handles lblContainer.TextChanged
+        If lblContainer.Text = "" Or txtPlateNumber.Text = "" Then
+            btnPrint.Enabled = False
+        Else
+            btnPrint.Enabled = True
+        End If
+    End Sub
+
+    Private Sub txtPlateNumber_TextChanged(sender As Object, e As EventArgs) Handles txtPlateNumber.TextChanged
+        If lblContainer.Text = "" Or txtPlateNumber.Text = "" Then
+            btnPrint.Enabled = False
+        Else
+            btnPrint.Enabled = True
+        End If
     End Sub
 End Class

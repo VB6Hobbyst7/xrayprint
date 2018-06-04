@@ -260,6 +260,8 @@ def fill_gateOut(container,plate):
     pyautogui.press('tab')
     pyautogui.typewrite(plate, interval=secs_between_keys)
     pyautogui.press('enter')
+    time.sleep(1)
+    pyautogui.press('enter')
     print ('Gate-Out Successful...')
 
 def go_gateIn_page():
@@ -320,6 +322,10 @@ def fill_gateIn():
 
 
     print ('Successful')
+    pyautogui.press('enter')
+    time.sleep(1)
+    pyautogui.press('enter')
+    time.sleep(1)
     pyautogui.press('enter')
     return (container_number,plate_number)
 
