@@ -506,4 +506,8 @@ Public Class Form1
             btnPrint.Enabled = True
         End If
     End Sub
+
+    Private Sub btnImportFullout_Click(sender As Object, e As EventArgs) Handles btnImportFullout.Click
+        frmManifestImport.Show()
+    End Sub
 End Class

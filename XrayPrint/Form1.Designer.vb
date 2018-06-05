@@ -31,6 +31,8 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.txtSpecial = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.chkSendmail = New System.Windows.Forms.CheckBox()
         Me.lblBooking = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -50,8 +52,7 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.lblRecord = New System.Windows.Forms.Label()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.txtSpecial = New System.Windows.Forms.TextBox()
+        Me.btnImportFullout = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -154,6 +155,23 @@ Partial Class Form1
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Fast Lane Print"
+        '
+        'txtSpecial
+        '
+        Me.txtSpecial.Location = New System.Drawing.Point(12, 304)
+        Me.txtSpecial.Multiline = True
+        Me.txtSpecial.Name = "txtSpecial"
+        Me.txtSpecial.Size = New System.Drawing.Size(190, 163)
+        Me.txtSpecial.TabIndex = 19
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(10, 282)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(91, 13)
+        Me.Label8.TabIndex = 18
+        Me.Label8.Text = "Special Request :"
         '
         'chkSendmail
         '
@@ -338,28 +356,21 @@ Partial Class Form1
         '
         Me.PrintDialog1.UseEXDialog = True
         '
-        'Label8
+        'btnImportFullout
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(10, 282)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(91, 13)
-        Me.Label8.TabIndex = 18
-        Me.Label8.Text = "Special Request :"
-        '
-        'txtSpecial
-        '
-        Me.txtSpecial.Location = New System.Drawing.Point(12, 304)
-        Me.txtSpecial.Multiline = True
-        Me.txtSpecial.Name = "txtSpecial"
-        Me.txtSpecial.Size = New System.Drawing.Size(190, 163)
-        Me.txtSpecial.TabIndex = 19
+        Me.btnImportFullout.Location = New System.Drawing.Point(508, 9)
+        Me.btnImportFullout.Name = "btnImportFullout"
+        Me.btnImportFullout.Size = New System.Drawing.Size(157, 40)
+        Me.btnImportFullout.TabIndex = 5
+        Me.btnImportFullout.Text = "Import Full-out"
+        Me.btnImportFullout.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(919, 502)
+        Me.Controls.Add(Me.btnImportFullout)
         Me.Controls.Add(Me.lblRecord)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.GroupBox2)
@@ -411,4 +422,5 @@ Partial Class Form1
     Friend WithEvents chkSendmail As CheckBox
     Friend WithEvents txtSpecial As TextBox
     Friend WithEvents Label8 As Label
+    Friend WithEvents btnImportFullout As Button
 End Class
