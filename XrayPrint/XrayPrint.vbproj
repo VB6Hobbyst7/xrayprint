@@ -185,9 +185,11 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="eir_print\eir.py" />
     <Content Include="import_fullout.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
