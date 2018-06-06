@@ -103,11 +103,14 @@ Public Class frmManifestImport
     End Sub
 
     Private Sub btnFullout_Click(sender As Object, e As EventArgs) Handles btnFullout.Click
-        createFullOutText(dtBooking, txtLine.Text.Trim, txtAgent.Text.Trim)
+        createFullOutText(dtBooking, txtLine.Text.Trim, txtAgent.Text.Trim,
+                          txtDateUntil.Text.Trim.ToUpper, txtCarrier.Text.Trim.ToUpper,
+                          txtShore.Text.Trim.ToUpper)
         RunCommandCom("execute_fullout.bat", "", False)
     End Sub
 
-    Public Shared Sub createFullOutText(dt As DataTable, vLine As String, vAgent As String)
+    Public Shared Sub createFullOutText(dt As DataTable, vLine As String, vAgent As String,
+                                        vDateUntil As String, vCarrier As String, vShore As String)
         Dim path As String = "fullout.txt"
 
         If File.Exists(path) Then
@@ -122,13 +125,22 @@ Public Class frmManifestImport
                 vConsignee = row("consigneeinfo_name")
                 vConsignee = vConsignee.Replace("(THAILAND)", "").Trim
                 vConsignee = vConsignee.Replace("CO.,LTD", "").Trim
-                vConsignee = Mid(vConsignee, 1, 30) & "/Auto"
+                vConsignee = vConsignee.Replace("COMPANY", "").Trim
+                vConsignee = vConsignee.Replace("THAILAND", "").Trim
+                vConsignee = vConsignee.Replace("CO.,", "").Trim
+                vConsignee = vConsignee.Replace(".", "").Trim
+                vConsignee = vConsignee.Replace(",", "").Trim
+                vConsignee = vConsignee.Replace("LTD", "").Trim
+                vConsignee = Mid(vConsignee, 1, 18) & "/" & IIf(vShore = "", "Auto", vShore)
+                vConsignee = Mid(vConsignee, 1, 30)
 
                 strDetail = row("booking") &
                     "|" & row("container") &
                     "|" & vLine.Trim.ToUpper &
                     "|" & vAgent.Trim.ToUpper &
-                    "|" & vConsignee
+                    "|" & vConsignee &
+                    "|" & vDateUntil &
+                    "|" & vCarrier
                 sw.WriteLine(strDetail)
             Next row
         End Using
@@ -157,6 +169,7 @@ Public Class frmManifestImport
         txtLine.Text = ""
         btnFullout.Enabled = False
         DataGridView1.DataSource = Nothing
+        ' dgItem.DataSource = Nothing
         If File.Exists("fullout.txt") Then
             File.Delete("fullout.txt")
         End If
@@ -334,7 +347,5 @@ Public Class frmManifestImport
         addToItem("Resource", "", "CFS RENT TO ", "")
     End Sub
 
-    Private Sub cbTarRif_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbTarRif.SelectedValueChanged
-        'e.Handled = True
-    End Sub
+
 End Class

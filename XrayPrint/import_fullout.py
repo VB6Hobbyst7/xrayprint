@@ -247,6 +247,8 @@ def main():
 				line = data[2]
 				agent = data[3]
 				remark = data[4]
+				untildate = data[5]
+				carrier =data[6]
 			 
 
 				if not rex.match(container):
@@ -264,9 +266,13 @@ def main():
 					create_order(booking,line,agent)
 					# sys.exit()
 
-				enter_container(container,remark)
+				enter_container(container,remark,untildate,carrier)
 				print ('%s - %s - %s - %s - %s' % (booking,container,line,agent,remark))
 				previous_booking = current_booking
+
+			pyautogui.press('f12')
+			pyautogui.press('f12')
+			pyautogui.press('f12')
 
 				# pyautogui.press('enter',3)
 
@@ -327,17 +333,37 @@ def create_order(booking,line,agent):
 	secs_between_keys=0.01
 	pyautogui.press('f6')
 	pyautogui.typewrite(booking, interval=secs_between_keys)
-	pyautogui.press('tab')
+
+	if len(booking) > 17 :
+		booking = booking[-17:]
+	# if booking >= 17 char ,No need to prees tab.
+	if len(booking) < 17 :
+		pyautogui.press('tab')
+	
 	pyautogui.typewrite(line, interval=secs_between_keys)
 	pyautogui.press('tab')
 	pyautogui.typewrite(agent, interval=secs_between_keys)
 	pyautogui.press('enter')
 
 
-def enter_container(container,remark):
+def enter_container(container,remark,untildate,carrier):
 	secs_between_keys=0.01
 	pyautogui.typewrite(container, interval=secs_between_keys)
-	pyautogui.press('tab',13)
+	pyautogui.press('tab',1)
+	if untildate :
+		pyautogui.typewrite(untildate, interval=secs_between_keys)
+		pyautogui.press('tab',5)
+	else:
+		pyautogui.press('tab',7)
+
+	if carrier :
+		pyautogui.typewrite(carrier, interval=secs_between_keys)
+
+	if len(carrier) <17:
+		pyautogui.press('tab',5)
+	else:
+		pyautogui.press('tab',4)
+
 	pyautogui.typewrite(remark, interval=secs_between_keys)
 	pyautogui.press('tab',2)
 	pyautogui.typewrite('Y', interval=secs_between_keys)

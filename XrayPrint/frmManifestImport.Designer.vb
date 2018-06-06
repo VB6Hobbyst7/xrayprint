@@ -36,6 +36,7 @@ Partial Class frmManifestImport
         Me.txtLine = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.btnAddCFS = New System.Windows.Forms.Button()
         Me.btnCopyToClipboard = New System.Windows.Forms.Button()
         Me.btnAddBL = New System.Windows.Forms.Button()
         Me.btnClearAll = New System.Windows.Forms.Button()
@@ -45,7 +46,12 @@ Partial Class frmManifestImport
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cbTarRif = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.btnAddCFS = New System.Windows.Forms.Button()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtCarrier = New System.Windows.Forms.TextBox()
+        Me.txtShore = New System.Windows.Forms.TextBox()
+        Me.txtDateUntil = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -119,6 +125,12 @@ Partial Class frmManifestImport
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.txtDateUntil)
+        Me.GroupBox2.Controls.Add(Me.txtShore)
+        Me.GroupBox2.Controls.Add(Me.txtCarrier)
+        Me.GroupBox2.Controls.Add(Me.Label9)
+        Me.GroupBox2.Controls.Add(Me.Label8)
+        Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Controls.Add(Me.btnFullout)
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.txtAgent)
@@ -126,7 +138,7 @@ Partial Class frmManifestImport
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Location = New System.Drawing.Point(568, 10)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(470, 99)
+        Me.GroupBox2.Size = New System.Drawing.Size(470, 100)
         Me.GroupBox2.TabIndex = 7
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Full-Out"
@@ -134,17 +146,17 @@ Partial Class frmManifestImport
         'btnFullout
         '
         Me.btnFullout.Enabled = False
-        Me.btnFullout.Location = New System.Drawing.Point(55, 56)
+        Me.btnFullout.Location = New System.Drawing.Point(351, 47)
         Me.btnFullout.Name = "btnFullout"
-        Me.btnFullout.Size = New System.Drawing.Size(269, 37)
-        Me.btnFullout.TabIndex = 4
+        Me.btnFullout.Size = New System.Drawing.Size(113, 52)
+        Me.btnFullout.TabIndex = 7
         Me.btnFullout.Text = "Import to CTCS"
         Me.btnFullout.UseVisualStyleBackColor = True
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(157, 30)
+        Me.Label3.Location = New System.Drawing.Point(149, 30)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(41, 13)
         Me.Label3.TabIndex = 4
@@ -195,6 +207,15 @@ Partial Class frmManifestImport
         Me.GroupBox3.TabIndex = 8
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Navision"
+        '
+        'btnAddCFS
+        '
+        Me.btnAddCFS.Location = New System.Drawing.Point(96, 321)
+        Me.btnAddCFS.Name = "btnAddCFS"
+        Me.btnAddCFS.Size = New System.Drawing.Size(101, 25)
+        Me.btnAddCFS.TabIndex = 8
+        Me.btnAddCFS.Text = "Add CFS Rent to"
+        Me.btnAddCFS.UseVisualStyleBackColor = True
         '
         'btnCopyToClipboard
         '
@@ -274,14 +295,53 @@ Partial Class frmManifestImport
         Me.Label5.TabIndex = 0
         Me.Label5.Text = "Trarif Code:"
         '
-        'btnAddCFS
+        'Label7
         '
-        Me.btnAddCFS.Location = New System.Drawing.Point(96, 321)
-        Me.btnAddCFS.Name = "btnAddCFS"
-        Me.btnAddCFS.Size = New System.Drawing.Size(101, 25)
-        Me.btnAddCFS.TabIndex = 8
-        Me.btnAddCFS.Text = "Add CFS Rent to"
-        Me.btnAddCFS.UseVisualStyleBackColor = True
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(289, 16)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(60, 13)
+        Me.Label7.TabIndex = 5
+        Me.Label7.Text = "Date Until :"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(8, 60)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(70, 13)
+        Me.Label8.TabIndex = 6
+        Me.Label8.Text = "Carrier Type :"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(8, 80)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(58, 13)
+        Me.Label9.TabIndex = 7
+        Me.Label9.Text = "Shore No :"
+        '
+        'txtCarrier
+        '
+        Me.txtCarrier.Location = New System.Drawing.Point(86, 54)
+        Me.txtCarrier.Name = "txtCarrier"
+        Me.txtCarrier.Size = New System.Drawing.Size(246, 20)
+        Me.txtCarrier.TabIndex = 5
+        '
+        'txtShore
+        '
+        Me.txtShore.Location = New System.Drawing.Point(86, 77)
+        Me.txtShore.Name = "txtShore"
+        Me.txtShore.Size = New System.Drawing.Size(246, 20)
+        Me.txtShore.TabIndex = 6
+        '
+        'txtDateUntil
+        '
+        Me.txtDateUntil.Location = New System.Drawing.Point(351, 13)
+        Me.txtDateUntil.Name = "txtDateUntil"
+        Me.txtDateUntil.Size = New System.Drawing.Size(112, 20)
+        Me.txtDateUntil.TabIndex = 4
         '
         'frmManifestImport
         '
@@ -333,4 +393,10 @@ Partial Class frmManifestImport
     Friend WithEvents btnAddBL As Button
     Friend WithEvents btnCopyToClipboard As Button
     Friend WithEvents btnAddCFS As Button
+    Friend WithEvents txtDateUntil As TextBox
+    Friend WithEvents txtShore As TextBox
+    Friend WithEvents txtCarrier As TextBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label7 As Label
 End Class
