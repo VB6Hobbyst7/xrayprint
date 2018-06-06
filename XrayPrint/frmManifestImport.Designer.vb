@@ -36,9 +36,21 @@ Partial Class frmManifestImport
         Me.txtLine = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.btnCopyToClipboard = New System.Windows.Forms.Button()
+        Me.btnAddBL = New System.Windows.Forms.Button()
+        Me.btnClearAll = New System.Windows.Forms.Button()
+        Me.dgItem = New System.Windows.Forms.DataGridView()
+        Me.btnAdd = New System.Windows.Forms.Button()
+        Me.txtQty = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cbTarRif = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.btnAddCFS = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        CType(Me.dgItem, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -125,7 +137,7 @@ Partial Class frmManifestImport
         Me.btnFullout.Location = New System.Drawing.Point(55, 56)
         Me.btnFullout.Name = "btnFullout"
         Me.btnFullout.Size = New System.Drawing.Size(269, 37)
-        Me.btnFullout.TabIndex = 5
+        Me.btnFullout.TabIndex = 4
         Me.btnFullout.Text = "Import to CTCS"
         Me.btnFullout.UseVisualStyleBackColor = True
         '
@@ -167,12 +179,109 @@ Partial Class frmManifestImport
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.btnAddCFS)
+        Me.GroupBox3.Controls.Add(Me.btnCopyToClipboard)
+        Me.GroupBox3.Controls.Add(Me.btnAddBL)
+        Me.GroupBox3.Controls.Add(Me.btnClearAll)
+        Me.GroupBox3.Controls.Add(Me.dgItem)
+        Me.GroupBox3.Controls.Add(Me.btnAdd)
+        Me.GroupBox3.Controls.Add(Me.txtQty)
+        Me.GroupBox3.Controls.Add(Me.Label6)
+        Me.GroupBox3.Controls.Add(Me.cbTarRif)
+        Me.GroupBox3.Controls.Add(Me.Label5)
         Me.GroupBox3.Location = New System.Drawing.Point(569, 116)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(468, 352)
         Me.GroupBox3.TabIndex = 8
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Navision"
+        '
+        'btnCopyToClipboard
+        '
+        Me.btnCopyToClipboard.Location = New System.Drawing.Point(341, 321)
+        Me.btnCopyToClipboard.Name = "btnCopyToClipboard"
+        Me.btnCopyToClipboard.Size = New System.Drawing.Size(121, 25)
+        Me.btnCopyToClipboard.TabIndex = 7
+        Me.btnCopyToClipboard.Text = "Copy to Clipboard"
+        Me.btnCopyToClipboard.UseVisualStyleBackColor = True
+        '
+        'btnAddBL
+        '
+        Me.btnAddBL.Location = New System.Drawing.Point(6, 321)
+        Me.btnAddBL.Name = "btnAddBL"
+        Me.btnAddBL.Size = New System.Drawing.Size(84, 25)
+        Me.btnAddBL.TabIndex = 6
+        Me.btnAddBL.Text = "Add B/L detail"
+        Me.btnAddBL.UseVisualStyleBackColor = True
+        '
+        'btnClearAll
+        '
+        Me.btnClearAll.Location = New System.Drawing.Point(237, 44)
+        Me.btnClearAll.Name = "btnClearAll"
+        Me.btnClearAll.Size = New System.Drawing.Size(84, 25)
+        Me.btnClearAll.TabIndex = 5
+        Me.btnClearAll.Text = "Clear all Trarif"
+        Me.btnClearAll.UseVisualStyleBackColor = True
+        '
+        'dgItem
+        '
+        Me.dgItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgItem.Location = New System.Drawing.Point(6, 75)
+        Me.dgItem.Name = "dgItem"
+        Me.dgItem.Size = New System.Drawing.Size(456, 240)
+        Me.dgItem.TabIndex = 4
+        '
+        'btnAdd
+        '
+        Me.btnAdd.Location = New System.Drawing.Point(147, 44)
+        Me.btnAdd.Name = "btnAdd"
+        Me.btnAdd.Size = New System.Drawing.Size(84, 25)
+        Me.btnAdd.TabIndex = 3
+        Me.btnAdd.Text = "Add Trarif"
+        Me.btnAdd.UseVisualStyleBackColor = True
+        '
+        'txtQty
+        '
+        Me.txtQty.Location = New System.Drawing.Point(85, 44)
+        Me.txtQty.Name = "txtQty"
+        Me.txtQty.Size = New System.Drawing.Size(56, 20)
+        Me.txtQty.TabIndex = 2
+        Me.txtQty.Text = "1"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(25, 51)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(52, 13)
+        Me.Label6.TabIndex = 2
+        Me.Label6.Text = "Quantity :"
+        '
+        'cbTarRif
+        '
+        Me.cbTarRif.FormattingEnabled = True
+        Me.cbTarRif.Location = New System.Drawing.Point(85, 20)
+        Me.cbTarRif.Name = "cbTarRif"
+        Me.cbTarRif.Size = New System.Drawing.Size(349, 21)
+        Me.cbTarRif.TabIndex = 1
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(15, 23)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(62, 13)
+        Me.Label5.TabIndex = 0
+        Me.Label5.Text = "Trarif Code:"
+        '
+        'btnAddCFS
+        '
+        Me.btnAddCFS.Location = New System.Drawing.Point(96, 321)
+        Me.btnAddCFS.Name = "btnAddCFS"
+        Me.btnAddCFS.Size = New System.Drawing.Size(101, 25)
+        Me.btnAddCFS.TabIndex = 8
+        Me.btnAddCFS.Text = "Add CFS Rent to"
+        Me.btnAddCFS.UseVisualStyleBackColor = True
         '
         'frmManifestImport
         '
@@ -192,6 +301,9 @@ Partial Class frmManifestImport
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        CType(Me.dgItem, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -211,4 +323,14 @@ Partial Class frmManifestImport
     Friend WithEvents txtLine As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents cbTarRif As ComboBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents btnAdd As Button
+    Friend WithEvents txtQty As TextBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents dgItem As DataGridView
+    Friend WithEvents btnClearAll As Button
+    Friend WithEvents btnAddBL As Button
+    Friend WithEvents btnCopyToClipboard As Button
+    Friend WithEvents btnAddCFS As Button
 End Class

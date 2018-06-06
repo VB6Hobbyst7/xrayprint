@@ -1,10 +1,13 @@
 ﻿Imports System.Data.Odbc
+Imports System.Data.OleDb
 Imports System.Data.SqlClient
 Imports System.IO
 
 Public Class frmManifestImport
 
     Dim dtBooking As DataTable
+    Dim dtTarrifList As New DataTable
+    Dim dtItem As New DataTable
 
     Friend Function getContainers(ByVal booking As String) As DataTable
 
@@ -28,7 +31,8 @@ Public Class frmManifestImport
                         containerdetail_number as container,
                         callsign,
                         voyagenumber as voy,
-                        berthdate
+                        berthdate,
+                        consigneeinfo_name
                  FROM MMAN
                  where masterbl = @booking"
 
@@ -79,6 +83,15 @@ Public Class frmManifestImport
         Dim x As Integer = dtBooking.Rows.Count
         lblRecord.Text = Str(x) + " Container(s)"
         DataGridView1.DataSource = dtBooking
+
+        ' Resize the master DataGridView columns to fit the newly loaded data.
+        DataGridView1.AutoResizeColumns()
+
+        ' Configure the details DataGridView so that its columns automatically
+        ' adjust their widths when the data changes.
+        DataGridView1.AutoSizeColumnsMode =
+        DataGridViewAutoSizeColumnsMode.AllCells
+
         If x > 0 Then
             txtAgent.Enabled = True
             txtLine.Enabled = True
@@ -100,16 +113,22 @@ Public Class frmManifestImport
         If File.Exists(path) Then
             File.Delete(path)
         End If
+        Dim vConsignee As String
 
         ' Create a file to write to.
         Using sw As StreamWriter = File.AppendText(path)
             Dim strDetail As String
             For Each row As DataRow In dt.Rows
+                vConsignee = row("consigneeinfo_name")
+                vConsignee = vConsignee.Replace("(THAILAND)", "").Trim
+                vConsignee = vConsignee.Replace("CO.,LTD", "").Trim
+                vConsignee = Mid(vConsignee, 1, 30) & "/Auto"
+
                 strDetail = row("booking") &
                     "|" & row("container") &
                     "|" & vLine.Trim.ToUpper &
                     "|" & vAgent.Trim.ToUpper &
-                    "|" & "FULL OUT AUTO (AUTO cashier)"
+                    "|" & vConsignee
                 sw.WriteLine(strDetail)
             Next row
         End Using
@@ -168,23 +187,154 @@ Public Class frmManifestImport
         End If
     End Sub
 
-    'Sub ShellandWaitX(ByVal ProcessPath As String, ByVal Arguments As String)
-    '    Dim objProcess As System.Diagnostics.Process
-    '    Try
-    '        objProcess = New System.Diagnostics.Process()
-    '        objProcess.StartInfo.Arguments = Arguments
-    '        objProcess.StartInfo.FileName = ProcessPath
-    '        objProcess.StartInfo.WindowStyle = ProcessWindowStyle.Maximized
-    '        objProcess.Start()
-    '        'Wait until it's finished
-    '        objProcess.WaitForExit()
-    '        'Exitcode as String
-    '        Console.WriteLine(objProcess.ExitCode.ToString())
-    '        objProcess.Close()
-    '    Catch ex As Exception
-    '        Console.WriteLine("Could not start process " & ProcessPath & "  " & ex.Message.ToString)
-    '    End Try
+    Sub openTarrifExcel()
+        Try
+            Dim conn As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;
+                                        Data Source=Trarifrate.xlsx;
+                                        Extended Properties=""Excel 12.0 Xml;HDR=YES"";")
+            Dim da As New OleDbDataAdapter("SELECT code,name FROM [Sheet1$]", conn)
+            da.Fill(dtTarrifList)
+            dtTarrifList.Columns.Add("display", GetType(String), "code + ' : ' + name")
 
-    'End Sub
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+    End Sub
 
+    Private Sub frmManifestImport_Load(sender As Object, e As EventArgs) Handles Me.Load
+        openTarrifExcel()
+        With cbTarRif
+            .DataSource = dtTarrifList
+            .DisplayMember = "display"
+            .ValueMember = "code"
+            .DropDownStyle = ComboBoxStyle.DropDown
+            .AutoCompleteMode = AutoCompleteMode.Suggest
+            .AutoCompleteSource = AutoCompleteSource.ListItems
+        End With
+
+        'Create DataTable for Item
+        With dtItem
+            .Columns.Add("Type", GetType(String))
+            .Columns.Add("Code", GetType(String))
+            .Columns.Add("Description", GetType(String))
+            .Columns.Add("Quantity", GetType(String))
+        End With
+        dgItem.DataSource = dtItem
+    End Sub
+
+
+
+    Private Sub cbTarRif_KeyPress(sender As Object, e As KeyPressEventArgs) Handles cbTarRif.KeyPress
+
+    End Sub
+
+
+
+    Private Sub txtQty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtQty.KeyPress
+        If e.KeyChar = Chr(13) Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+
+    Private Sub cbTarRif_KeyDown(sender As Object, e As KeyEventArgs) Handles cbTarRif.KeyDown
+        'If e.KeyCode = Keys.Enter Then
+        '    SendKeys.Send("{TAB}")
+        'End If
+    End Sub
+
+    Private Sub txtLine_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtLine.KeyPress
+        If e.KeyChar = Chr(13) Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+
+    Private Sub txtAgent_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtAgent.KeyPress
+        If e.KeyChar = Chr(13) Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        addToItem("Resource", cbTarRif.SelectedValue, cbTarRif.SelectedItem("name"), txtQty.Text)
+    End Sub
+
+    Sub addToItem(vType As String, vCode As String, vDescription As String, vQty As String)
+        Dim workRow As DataRow = dtItem.NewRow()
+        With workRow
+            workRow("type") = vType
+            workRow("code") = vCode
+            workRow("description") = vDescription
+            workRow("quantity") = vQty
+        End With
+        dtItem.Rows.Add(workRow)
+
+        ' Resize the master DataGridView columns to fit the newly loaded data.
+        dgItem.AutoResizeColumns()
+
+        ' Configure the details DataGridView so that its columns automatically
+        ' adjust their widths when the data changes.
+        dgItem.AutoSizeColumnsMode =
+        DataGridViewAutoSizeColumnsMode.AllCells
+
+        dgItem.ClipboardCopyMode =
+        DataGridViewClipboardCopyMode.EnableWithoutHeaderText
+
+        cbTarRif.Focus()
+    End Sub
+
+    Private Sub btnClearAll_Click(sender As Object, e As EventArgs) Handles btnClearAll.Click
+        dtItem.Rows.Clear()
+    End Sub
+
+    Private Sub txtQty_TextChanged(sender As Object, e As EventArgs) Handles txtQty.TextChanged
+
+    End Sub
+
+    Private Sub txtQty_GotFocus(sender As Object, e As EventArgs) Handles txtQty.GotFocus
+        txtQty.SelectAll()
+    End Sub
+
+    Private Sub btnAddBL_Click(sender As Object, e As EventArgs) Handles btnAddBL.Click
+        'First Line B/L number
+        addToItem("Resource", "", "B/L : " & txtBooking.Text.Trim.ToUpper, "")
+
+        For Each row As DataRow In dtBooking.Rows
+            addToItem("Resource", "", row("container"), "")
+        Next
+        'addToItem("", "", "", "")
+    End Sub
+
+    Private Sub btnCopyToClipboard_Click(sender As Object, e As EventArgs) Handles btnCopyToClipboard.Click
+
+        Try
+            dgItem.SelectAll()
+            ' Add the selection to the clipboard.
+            Clipboard.SetDataObject(
+                    dgItem.GetClipboardContent())
+
+                ' Replace the text box contents with the clipboard text.
+                'Me.TextBox1.Text = Clipboard.GetText()
+
+            Catch ex As System.Runtime.InteropServices.ExternalException
+                MsgBox("The Clipboard could not be accessed. Please try again.")
+
+            End Try
+
+    End Sub
+
+    Private Sub cbTarRif_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbTarRif.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub cbTarRif_RightToLeftChanged(sender As Object, e As EventArgs) Handles cbTarRif.RightToLeftChanged
+
+    End Sub
+
+    Private Sub btnAddCFS_Click(sender As Object, e As EventArgs) Handles btnAddCFS.Click
+        addToItem("Resource", "", "CFS RENT TO ", "")
+    End Sub
+
+    Private Sub cbTarRif_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbTarRif.SelectedValueChanged
+        'e.Handled = True
+    End Sub
 End Class
