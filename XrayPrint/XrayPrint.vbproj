@@ -185,7 +185,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="eir_print\eir.py" />
+    <Content Include="eir_print\eir.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="import_fullout.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

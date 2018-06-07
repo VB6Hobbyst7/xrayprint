@@ -350,11 +350,14 @@ def enter_container(container,remark,untildate,carrier):
 	secs_between_keys=0.01
 	pyautogui.typewrite(container, interval=secs_between_keys)
 	pyautogui.press('tab',1)
+
 	if untildate :
 		pyautogui.typewrite(untildate, interval=secs_between_keys)
-		pyautogui.press('tab',5)
-	else:
+		
+	if len(untildate) < 8:
 		pyautogui.press('tab',7)
+	else:
+		pyautogui.press('tab',6)
 
 	if carrier :
 		pyautogui.typewrite(carrier, interval=secs_between_keys)
