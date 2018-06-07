@@ -56,6 +56,7 @@ Partial Class frmManifestImport
         Me.Label11 = New System.Windows.Forms.Label()
         Me.lblPackage = New System.Windows.Forms.Label()
         Me.lblGross = New System.Windows.Forms.Label()
+        Me.chkAddress = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -133,6 +134,7 @@ Partial Class frmManifestImport
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.chkAddress)
         Me.GroupBox2.Controls.Add(Me.txtDateUntil)
         Me.GroupBox2.Controls.Add(Me.txtShore)
         Me.GroupBox2.Controls.Add(Me.txtCarrier)
@@ -162,7 +164,7 @@ Partial Class frmManifestImport
         '
         Me.txtShore.Location = New System.Drawing.Point(86, 77)
         Me.txtShore.Name = "txtShore"
-        Me.txtShore.Size = New System.Drawing.Size(246, 20)
+        Me.txtShore.Size = New System.Drawing.Size(88, 20)
         Me.txtShore.TabIndex = 6
         '
         'txtCarrier
@@ -202,9 +204,9 @@ Partial Class frmManifestImport
         'btnFullout
         '
         Me.btnFullout.Enabled = False
-        Me.btnFullout.Location = New System.Drawing.Point(351, 47)
+        Me.btnFullout.Location = New System.Drawing.Point(350, 39)
         Me.btnFullout.Name = "btnFullout"
-        Me.btnFullout.Size = New System.Drawing.Size(113, 52)
+        Me.btnFullout.Size = New System.Drawing.Size(113, 43)
         Me.btnFullout.TabIndex = 7
         Me.btnFullout.Text = "Import to CTCS"
         Me.btnFullout.UseVisualStyleBackColor = True
@@ -391,6 +393,16 @@ Partial Class frmManifestImport
         Me.lblGross.TabIndex = 6
         Me.lblGross.Text = "..."
         '
+        'chkAddress
+        '
+        Me.chkAddress.AutoSize = True
+        Me.chkAddress.Location = New System.Drawing.Point(180, 80)
+        Me.chkAddress.Name = "chkAddress"
+        Me.chkAddress.Size = New System.Drawing.Size(120, 17)
+        Me.chkAddress.TabIndex = 8
+        Me.chkAddress.Text = "Go to Address page"
+        Me.chkAddress.UseVisualStyleBackColor = True
+        '
         'frmManifestImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -451,4 +463,5 @@ Partial Class frmManifestImport
     Friend WithEvents lblPackage As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents Label10 As Label
+    Friend WithEvents chkAddress As CheckBox
 End Class

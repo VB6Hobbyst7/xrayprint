@@ -119,6 +119,9 @@ Public Class frmManifestImport
                           txtDateUntil.Text.Trim.ToUpper, txtCarrier.Text.Trim.ToUpper,
                           txtShore.Text.Trim.ToUpper)
         RunCommandCom("execute_fullout.bat", "", False)
+        If chkAddress.Checked Then
+            RunCommandCom("execute_address.bat", "", False)
+        End If
     End Sub
 
     Public Shared Sub createFullOutText(dt As DataTable, vLine As String, vAgent As String,
@@ -133,6 +136,7 @@ Public Class frmManifestImport
         ' Create a file to write to.
         Using sw As StreamWriter = File.AppendText(path)
             Dim strDetail As String
+            Dim vFirst As Boolean = True
             For Each row As DataRow In dt.Rows
                 vConsignee = row("consigneeinfo_name")
                 vConsignee = vConsignee.Replace("(THAILAND)", "").Trim
@@ -151,9 +155,10 @@ Public Class frmManifestImport
                     "|" & vLine.Trim.ToUpper &
                     "|" & vAgent.Trim.ToUpper &
                     "|" & vConsignee &
-                    "|" & vDateUntil &
+                    "|" & IIf(vFirst, vDateUntil, "") &
                     "|" & vCarrier
                 sw.WriteLine(strDetail)
+                vFirst = False
             Next row
         End Using
 
@@ -334,9 +339,28 @@ Public Class frmManifestImport
         'First Line B/L number
         addToItem("Resource", "", "B/L : " & txtBooking.Text.Trim.ToUpper, "")
 
+        Dim vIndex As Integer = 1
+        Dim vOdd As Integer = 0
+        Dim vTempCont As String = ""
+        'For Each row As DataRow In dtBooking.Rows
+        '    addToItem("Resource", "", row("container"), "")
+        'Next
         For Each row As DataRow In dtBooking.Rows
-            addToItem("Resource", "", row("container"), "")
+            vOdd = vIndex Mod 2
+            If vOdd = 1 Then
+                vTempCont = row("container") & " "
+            Else
+                vTempCont = vTempCont & " " & row("container")
+                addToItem("Resource", "", vTempCont, "")
+                vTempCont = ""
+            End If
+
+
+            vIndex = vIndex + 1
         Next
+        If vOdd = 1 Then
+            addToItem("Resource", "", vTempCont, "")
+        End If
         'addToItem("", "", "", "")
     End Sub
 

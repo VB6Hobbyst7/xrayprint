@@ -119,6 +119,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="execute_address.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="execute_fullout.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -185,6 +188,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="customer_address.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="eir_print\eir.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
