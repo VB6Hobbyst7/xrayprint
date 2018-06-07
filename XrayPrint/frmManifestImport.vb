@@ -1,7 +1,9 @@
 ﻿Imports System.Data.Odbc
 Imports System.Data.OleDb
 Imports System.Data.SqlClient
+Imports System.Globalization
 Imports System.IO
+Imports System.Reflection
 
 Public Class frmManifestImport
 
@@ -32,7 +34,11 @@ Public Class frmManifestImport
                         callsign,
                         voyagenumber as voy,
                         berthdate,
-                        consigneeinfo_name
+                        consigneeinfo_name,
+                        TotalgrossweightInfo_weight gross,
+                        TotalgrossweightInfo_unitcode unit_gross,
+                        TotalPackageInfo_amount amount,
+                        TotalPackageInfo_unitcode unit_amount
                  FROM MMAN
                  where masterbl = @booking"
 
@@ -95,10 +101,16 @@ Public Class frmManifestImport
         If x > 0 Then
             txtAgent.Enabled = True
             txtLine.Enabled = True
+            lblGross.Text = String.Format(CultureInfo.InvariantCulture,
+                                 "{0:0,0}", dtBooking.Rows(0).Item("gross")) & " " & dtBooking.Rows(0).Item("unit_gross")
+            lblPackage.Text = String.Format(CultureInfo.InvariantCulture,
+                                 "{0:0,0}", dtBooking.Rows(0).Item("amount")) & " " & dtBooking.Rows(0).Item("unit_amount")
         Else
             txtAgent.Enabled = False
             txtLine.Enabled = False
             btnFullout.Enabled = False
+            lblGross.Text = ""
+            lblPackage.Text = ""
         End If
     End Sub
 
@@ -167,6 +179,11 @@ Public Class frmManifestImport
     Private Sub txtBooking_TextChanged(sender As Object, e As EventArgs) Handles txtBooking.TextChanged
         txtAgent.Text = ""
         txtLine.Text = ""
+        lblGross.Text = ""
+        lblPackage.Text = ""
+        txtDateUntil.Text = ""
+        txtCarrier.Text = ""
+        txtShore.Text = ""
         btnFullout.Enabled = False
         DataGridView1.DataSource = Nothing
         ' dgItem.DataSource = Nothing
@@ -233,6 +250,12 @@ Public Class frmManifestImport
             .Columns.Add("Quantity", GetType(String))
         End With
         dgItem.DataSource = dtItem
+
+        Dim versionNumber As Version
+
+        versionNumber = Assembly.GetExecutingAssembly().GetName().Version
+        Me.Text = Me.Text & " version :" & versionNumber.ToString
+
     End Sub
 
 
@@ -325,13 +348,13 @@ Public Class frmManifestImport
             Clipboard.SetDataObject(
                     dgItem.GetClipboardContent())
 
-                ' Replace the text box contents with the clipboard text.
-                'Me.TextBox1.Text = Clipboard.GetText()
+            ' Replace the text box contents with the clipboard text.
+            'Me.TextBox1.Text = Clipboard.GetText()
 
-            Catch ex As System.Runtime.InteropServices.ExternalException
-                MsgBox("The Clipboard could not be accessed. Please try again.")
+        Catch ex As System.Runtime.InteropServices.ExternalException
+            MsgBox("The Clipboard could not be accessed. Please try again.")
 
-            End Try
+        End Try
 
     End Sub
 

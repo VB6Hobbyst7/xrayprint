@@ -30,6 +30,12 @@ Partial Class frmManifestImport
         Me.lblRecord = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.txtDateUntil = New System.Windows.Forms.TextBox()
+        Me.txtShore = New System.Windows.Forms.TextBox()
+        Me.txtCarrier = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.btnFullout = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtAgent = New System.Windows.Forms.TextBox()
@@ -46,12 +52,10 @@ Partial Class frmManifestImport
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cbTarRif = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.txtCarrier = New System.Windows.Forms.TextBox()
-        Me.txtShore = New System.Windows.Forms.TextBox()
-        Me.txtDateUntil = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.lblPackage = New System.Windows.Forms.Label()
+        Me.lblGross = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -61,12 +65,16 @@ Partial Class frmManifestImport
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.lblGross)
+        Me.GroupBox1.Controls.Add(Me.lblPackage)
+        Me.GroupBox1.Controls.Add(Me.Label11)
+        Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.btnGetData)
         Me.GroupBox1.Controls.Add(Me.txtBooking)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(8, 10)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(554, 73)
+        Me.GroupBox1.Size = New System.Drawing.Size(554, 100)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "B/L Detail"
@@ -100,15 +108,15 @@ Partial Class frmManifestImport
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(8, 112)
+        Me.DataGridView1.Location = New System.Drawing.Point(8, 149)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(554, 357)
+        Me.DataGridView1.Size = New System.Drawing.Size(554, 319)
         Me.DataGridView1.TabIndex = 2
         '
         'lblRecord
         '
         Me.lblRecord.AutoSize = True
-        Me.lblRecord.Location = New System.Drawing.Point(48, 96)
+        Me.lblRecord.Location = New System.Drawing.Point(48, 133)
         Me.lblRecord.Name = "lblRecord"
         Me.lblRecord.Size = New System.Drawing.Size(13, 13)
         Me.lblRecord.TabIndex = 6
@@ -117,7 +125,7 @@ Partial Class frmManifestImport
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(5, 96)
+        Me.Label4.Location = New System.Drawing.Point(5, 133)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(37, 13)
         Me.Label4.TabIndex = 5
@@ -142,6 +150,54 @@ Partial Class frmManifestImport
         Me.GroupBox2.TabIndex = 7
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Full-Out"
+        '
+        'txtDateUntil
+        '
+        Me.txtDateUntil.Location = New System.Drawing.Point(351, 13)
+        Me.txtDateUntil.Name = "txtDateUntil"
+        Me.txtDateUntil.Size = New System.Drawing.Size(112, 20)
+        Me.txtDateUntil.TabIndex = 4
+        '
+        'txtShore
+        '
+        Me.txtShore.Location = New System.Drawing.Point(86, 77)
+        Me.txtShore.Name = "txtShore"
+        Me.txtShore.Size = New System.Drawing.Size(246, 20)
+        Me.txtShore.TabIndex = 6
+        '
+        'txtCarrier
+        '
+        Me.txtCarrier.Location = New System.Drawing.Point(86, 54)
+        Me.txtCarrier.Name = "txtCarrier"
+        Me.txtCarrier.Size = New System.Drawing.Size(246, 20)
+        Me.txtCarrier.TabIndex = 5
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(8, 80)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(58, 13)
+        Me.Label9.TabIndex = 7
+        Me.Label9.Text = "Shore No :"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(8, 60)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(70, 13)
+        Me.Label8.TabIndex = 6
+        Me.Label8.Text = "Carrier Type :"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(289, 16)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(60, 13)
+        Me.Label7.TabIndex = 5
+        Me.Label7.Text = "Date Until :"
         '
         'btnFullout
         '
@@ -295,53 +351,45 @@ Partial Class frmManifestImport
         Me.Label5.TabIndex = 0
         Me.Label5.Text = "Trarif Code:"
         '
-        'Label7
+        'Label10
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(289, 16)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(60, 13)
-        Me.Label7.TabIndex = 5
-        Me.Label7.Text = "Date Until :"
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(4, 77)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(98, 13)
+        Me.Label10.TabIndex = 3
+        Me.Label10.Text = "Package Amount  :"
         '
-        'Label8
+        'Label11
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(8, 60)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(70, 13)
-        Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Carrier Type :"
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(305, 77)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(80, 13)
+        Me.Label11.TabIndex = 4
+        Me.Label11.Text = "Gross Weight  :"
         '
-        'Label9
+        'lblPackage
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(8, 80)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(58, 13)
-        Me.Label9.TabIndex = 7
-        Me.Label9.Text = "Shore No :"
+        Me.lblPackage.AutoSize = True
+        Me.lblPackage.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPackage.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblPackage.Location = New System.Drawing.Point(95, 68)
+        Me.lblPackage.Name = "lblPackage"
+        Me.lblPackage.Size = New System.Drawing.Size(30, 25)
+        Me.lblPackage.TabIndex = 5
+        Me.lblPackage.Text = "..."
         '
-        'txtCarrier
+        'lblGross
         '
-        Me.txtCarrier.Location = New System.Drawing.Point(86, 54)
-        Me.txtCarrier.Name = "txtCarrier"
-        Me.txtCarrier.Size = New System.Drawing.Size(246, 20)
-        Me.txtCarrier.TabIndex = 5
-        '
-        'txtShore
-        '
-        Me.txtShore.Location = New System.Drawing.Point(86, 77)
-        Me.txtShore.Name = "txtShore"
-        Me.txtShore.Size = New System.Drawing.Size(246, 20)
-        Me.txtShore.TabIndex = 6
-        '
-        'txtDateUntil
-        '
-        Me.txtDateUntil.Location = New System.Drawing.Point(351, 13)
-        Me.txtDateUntil.Name = "txtDateUntil"
-        Me.txtDateUntil.Size = New System.Drawing.Size(112, 20)
-        Me.txtDateUntil.TabIndex = 4
+        Me.lblGross.AutoSize = True
+        Me.lblGross.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGross.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblGross.Location = New System.Drawing.Point(381, 68)
+        Me.lblGross.Name = "lblGross"
+        Me.lblGross.Size = New System.Drawing.Size(30, 25)
+        Me.lblGross.TabIndex = 6
+        Me.lblGross.Text = "..."
         '
         'frmManifestImport
         '
@@ -399,4 +447,8 @@ Partial Class frmManifestImport
     Friend WithEvents Label9 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
+    Friend WithEvents lblGross As Label
+    Friend WithEvents lblPackage As Label
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label10 As Label
 End Class
