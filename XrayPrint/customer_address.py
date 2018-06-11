@@ -265,7 +265,9 @@ def main():
 				pyautogui.press('down')
 				pyautogui.press('down')
 
-				pyautogui.typewrite('%s*' % remark[:12], interval=secs_between_keys)
+
+				remark2 = remark.split('/')[0]
+				pyautogui.typewrite('%s*' % remark2[:10], interval=secs_between_keys)
 				pyautogui.press('enter')
 				print ('======Finished=======')
 				sys.exit()
