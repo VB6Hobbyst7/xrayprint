@@ -182,6 +182,11 @@ def main():
 		pyautogui.press('f12')
 		pyautogui.press('f12')
 		pyautogui.press('f12')
+		pyautogui.press('f12')
+		pyautogui.press('f12')
+		pyautogui.press('f12')
+		pyautogui.press('f12')
+		pyautogui.press('f12')
 		#2) Now On "Product Environment LCB1" screen.
 		#Need to input "1" --> Work with CTCS.
 		pyautogui.typewrite('1', interval=secs_between_keys)

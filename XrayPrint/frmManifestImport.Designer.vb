@@ -23,6 +23,10 @@ Partial Class frmManifestImport
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblGross = New System.Windows.Forms.Label()
+        Me.lblPackage = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.btnGetData = New System.Windows.Forms.Button()
         Me.txtBooking = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -30,6 +34,7 @@ Partial Class frmManifestImport
         Me.lblRecord = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkAddress = New System.Windows.Forms.CheckBox()
         Me.txtDateUntil = New System.Windows.Forms.TextBox()
         Me.txtShore = New System.Windows.Forms.TextBox()
         Me.txtCarrier = New System.Windows.Forms.TextBox()
@@ -52,11 +57,7 @@ Partial Class frmManifestImport
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cbTarRif = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.lblPackage = New System.Windows.Forms.Label()
-        Me.lblGross = New System.Windows.Forms.Label()
-        Me.chkAddress = New System.Windows.Forms.CheckBox()
+        Me.btnCfs = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -79,6 +80,46 @@ Partial Class frmManifestImport
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "B/L Detail"
+        '
+        'lblGross
+        '
+        Me.lblGross.AutoSize = True
+        Me.lblGross.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGross.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblGross.Location = New System.Drawing.Point(381, 68)
+        Me.lblGross.Name = "lblGross"
+        Me.lblGross.Size = New System.Drawing.Size(30, 25)
+        Me.lblGross.TabIndex = 6
+        Me.lblGross.Text = "..."
+        '
+        'lblPackage
+        '
+        Me.lblPackage.AutoSize = True
+        Me.lblPackage.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPackage.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblPackage.Location = New System.Drawing.Point(95, 68)
+        Me.lblPackage.Name = "lblPackage"
+        Me.lblPackage.Size = New System.Drawing.Size(30, 25)
+        Me.lblPackage.TabIndex = 5
+        Me.lblPackage.Text = "..."
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(305, 77)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(80, 13)
+        Me.Label11.TabIndex = 4
+        Me.Label11.Text = "Gross Weight  :"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(4, 77)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(98, 13)
+        Me.Label10.TabIndex = 3
+        Me.Label10.Text = "Package Amount  :"
         '
         'btnGetData
         '
@@ -152,6 +193,16 @@ Partial Class frmManifestImport
         Me.GroupBox2.TabIndex = 7
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Full-Out"
+        '
+        'chkAddress
+        '
+        Me.chkAddress.AutoSize = True
+        Me.chkAddress.Location = New System.Drawing.Point(180, 80)
+        Me.chkAddress.Name = "chkAddress"
+        Me.chkAddress.Size = New System.Drawing.Size(120, 17)
+        Me.chkAddress.TabIndex = 8
+        Me.chkAddress.Text = "Go to Address page"
+        Me.chkAddress.UseVisualStyleBackColor = True
         '
         'txtDateUntil
         '
@@ -353,61 +404,22 @@ Partial Class frmManifestImport
         Me.Label5.TabIndex = 0
         Me.Label5.Text = "Trarif Code:"
         '
-        'Label10
+        'btnCfs
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(4, 77)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(98, 13)
-        Me.Label10.TabIndex = 3
-        Me.Label10.Text = "Package Amount  :"
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(305, 77)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(80, 13)
-        Me.Label11.TabIndex = 4
-        Me.Label11.Text = "Gross Weight  :"
-        '
-        'lblPackage
-        '
-        Me.lblPackage.AutoSize = True
-        Me.lblPackage.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPackage.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblPackage.Location = New System.Drawing.Point(95, 68)
-        Me.lblPackage.Name = "lblPackage"
-        Me.lblPackage.Size = New System.Drawing.Size(30, 25)
-        Me.lblPackage.TabIndex = 5
-        Me.lblPackage.Text = "..."
-        '
-        'lblGross
-        '
-        Me.lblGross.AutoSize = True
-        Me.lblGross.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGross.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblGross.Location = New System.Drawing.Point(381, 68)
-        Me.lblGross.Name = "lblGross"
-        Me.lblGross.Size = New System.Drawing.Size(30, 25)
-        Me.lblGross.TabIndex = 6
-        Me.lblGross.Text = "..."
-        '
-        'chkAddress
-        '
-        Me.chkAddress.AutoSize = True
-        Me.chkAddress.Location = New System.Drawing.Point(180, 80)
-        Me.chkAddress.Name = "chkAddress"
-        Me.chkAddress.Size = New System.Drawing.Size(120, 17)
-        Me.chkAddress.TabIndex = 8
-        Me.chkAddress.Text = "Go to Address page"
-        Me.chkAddress.UseVisualStyleBackColor = True
+        Me.btnCfs.Enabled = False
+        Me.btnCfs.Location = New System.Drawing.Point(469, 119)
+        Me.btnCfs.Name = "btnCfs"
+        Me.btnCfs.Size = New System.Drawing.Size(92, 30)
+        Me.btnCfs.TabIndex = 9
+        Me.btnCfs.Text = "CFS or LCL"
+        Me.btnCfs.UseVisualStyleBackColor = True
         '
         'frmManifestImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1047, 481)
+        Me.Controls.Add(Me.btnCfs)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.lblRecord)
@@ -464,4 +476,5 @@ Partial Class frmManifestImport
     Friend WithEvents Label11 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents chkAddress As CheckBox
+    Friend WithEvents btnCfs As Button
 End Class

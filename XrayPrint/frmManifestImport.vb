@@ -99,6 +99,7 @@ Public Class frmManifestImport
         DataGridViewAutoSizeColumnsMode.AllCells
 
         If x > 0 Then
+            btnCfs.Enabled = True
             txtAgent.Enabled = True
             txtLine.Enabled = True
             lblGross.Text = String.Format(CultureInfo.InvariantCulture,
@@ -109,6 +110,7 @@ Public Class frmManifestImport
             txtAgent.Enabled = False
             txtLine.Enabled = False
             btnFullout.Enabled = False
+            btnCfs.Enabled = False
             lblGross.Text = ""
             lblPackage.Text = ""
         End If
@@ -190,6 +192,7 @@ Public Class frmManifestImport
         txtCarrier.Text = ""
         txtShore.Text = ""
         btnFullout.Enabled = False
+        btnCfs.Enabled = False
         DataGridView1.DataSource = Nothing
         ' dgItem.DataSource = Nothing
         If File.Exists("fullout.txt") Then
@@ -394,5 +397,9 @@ Public Class frmManifestImport
         addToItem("Resource", "", "CFS RENT TO ", "")
     End Sub
 
-
+    Private Sub btnCfs_Click(sender As Object, e As EventArgs) Handles btnCfs.Click
+        Dim vCfs As New frmCFS
+        vCfs.BL_Number = txtBooking.Text.Trim.ToUpper
+        vCfs.Show()
+    End Sub
 End Class
