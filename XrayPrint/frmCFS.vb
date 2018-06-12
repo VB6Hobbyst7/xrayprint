@@ -55,6 +55,7 @@ Public Class frmCFS
             Case "9" : vStatus = "LCL/CFS"
         End Select
         lblStatus.Text = vStatus
+        lblVoy.Text = dtBooking.Rows(0).Item("voy")
     End Sub
 
     Friend Function getContainers(ByVal booking As String) As DataTable
@@ -146,6 +147,10 @@ Public Class frmCFS
                                         <tr>
                                             <td>B/L:</td>
                                             <td>" & lblBL.Text.Trim & "</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Voy:</td>
+                                            <td>" & lblVoy.Text & "</td>
                                         </tr>
                                         <tr>
                                             <td>Container:</td>
@@ -308,6 +313,7 @@ Public Class frmCFS
             'Consignee
             .Cells(6, 3) = lblConsigneeName.Text
             .Cells(7, 3) = txtConsigneeAddr.Text
+            .Cells(9, 3) = lblVoy.Text
             .Cells(10, 3) = txtReceiveDate.Text
             'Container
             .Cells(12, 3) = lblBL.Text

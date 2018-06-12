@@ -8,9 +8,81 @@ Imports System.Reflection
 Public Class frmManifestImport
 
     Dim dtBooking As DataTable
+    Dim dtDwell As DataTable
     Dim dtTarrifList As New DataTable
     Dim dtItem As New DataTable
 
+    Function get_containers_list() As String
+        Dim vList As String = ""
+        For Each row As DataRow In dtBooking.Rows
+            vList = vList & "    '" & row("container") & "',"
+        Next
+        Return Mid(vList, 1, Len(vList) - 1)
+    End Function
+
+    Friend Function getDwell(ByVal continerList As String,
+                             callSign As String,
+                             voy As String) As DataTable
+
+        Dim cmd As New OdbcCommand
+        Dim sqlBooking As String
+        Dim da As New OdbcDataAdapter
+
+        Dim con As OdbcConnection
+        Dim connectionString As String
+        connectionString = "DSN=CTCS1;UserID=OPSCC;Password=OPSCC21;DataCompression=True;"
+        con = New OdbcConnection(connectionString)
+        con.Open()
+        '                HDTD03 as time_in,
+        sqlBooking = "SELECT 
+                CNID03 as container,
+                HDDT03 as date_in,
+                TOPR01 as terminal
+                FROM S2114C2V.LCB1DAT.DISCHARGE DISCHARGE
+                where DISCHARGE.CNID03 in (" & continerList & ") and DISCHARGE.MVV447 =? and 
+                    DISCHARGE.RSIN01=?"
+
+        ' Create an OleDbDataAdapter object
+        Dim adapter As OdbcDataAdapter = New OdbcDataAdapter()
+        'adapter.SelectCommand = New OdbcCommand(sql, con)
+
+
+        Dim ds As New DataTable
+
+        ' Create Data Set object
+        'Dim ds As DataSet = New DataSet("orders")
+        ' Call DataAdapter's Fill method to fill data from the
+        ' DataAdapter to the DataSet 
+        'adapter.Fill(ds)
+
+        With cmd
+
+            .CommandType = CommandType.Text
+            .Connection = con
+            .CommandTimeout = 100
+
+            .CommandText = sqlBooking
+            '.Parameters.Add(New OdbcParameter("containers", continerList))
+            .Parameters.Add(New OdbcParameter("callsign", callSign))
+            .Parameters.Add(New OdbcParameter("voy", voy))
+
+        End With
+
+
+
+        'In case Search Booking by Container
+
+        da.SelectCommand = cmd
+        da.Fill(ds)
+
+
+
+
+
+        Return ds
+
+
+    End Function
     Friend Function getContainers(ByVal booking As String) As DataTable
 
         Dim cmd As New SqlCommand
@@ -85,6 +157,8 @@ Public Class frmManifestImport
 
     Sub getContainer(vBooking As String)
 
+
+
         dtBooking = getContainers(vBooking)
         Dim x As Integer = dtBooking.Rows.Count
         lblRecord.Text = Str(x) + " Container(s)"
@@ -106,7 +180,20 @@ Public Class frmManifestImport
                                  "{0:0,0}", dtBooking.Rows(0).Item("gross")) & " " & dtBooking.Rows(0).Item("unit_gross")
             lblPackage.Text = String.Format(CultureInfo.InvariantCulture,
                                  "{0:0,0}", dtBooking.Rows(0).Item("amount")) & " " & dtBooking.Rows(0).Item("unit_amount")
+
+            Dim vList As String = get_containers_list()
+            dtDwell = getDwell(vList,
+                               dtBooking.Rows(0).Item("callsign"),
+                               dtBooking.Rows(0).Item("voy"))
+            lblDwellRecord.Text = Str(dtDwell.Rows.Count) + " Container(s)"
+
+
+            '----Add Dewll---
+            txtDeliver.Text = Format(Now(), "yyyyMMdd")
+            calculate()
+
         Else
+            lblDwellRecord.Text = ""
             txtAgent.Enabled = False
             txtLine.Enabled = False
             btnFullout.Enabled = False
@@ -114,6 +201,106 @@ Public Class frmManifestImport
             lblGross.Text = ""
             lblPackage.Text = ""
         End If
+    End Sub
+
+    Sub calculate(Optional vDate As String = "")
+
+        If Not dtDwell.Columns.Contains("dWell") Then
+            dtDwell.Columns.Add("dWell", GetType(Integer))
+            dtDwell.Columns.Add("1-7day", GetType(Integer))
+            dtDwell.Columns.Add("8-14day", GetType(Integer))
+            dtDwell.Columns.Add(">15day", GetType(Integer))
+        End If
+        Dim wD As Long
+        Dim vTotalDwell As Integer = 0
+        Dim vTotal7Day As Integer = 0
+        Dim vTotal14Day As Integer = 0
+        Dim vTotal15Day As Integer = 0
+
+        Dim dateIn As Date
+        Dim dateToday As Date = Now()
+
+        Dim vNewdWell As Integer = 0
+        If vDate = "" Then
+            dateToday = Now()
+        Else
+            dateToday = Date.ParseExact(vDate, "yyyyMMdd",
+                System.Globalization.DateTimeFormatInfo.InvariantInfo)
+        End If
+
+
+        For Each row As DataRow In dtDwell.Rows
+
+            If row("Terminal") = "Total" Then
+                row.Delete()
+                GoTo tag_total
+            End If
+
+            dateIn = Date.ParseExact(row("date_in"), "yyyyMMdd",
+                System.Globalization.DateTimeFormatInfo.InvariantInfo)
+            wD = DateDiff(DateInterval.Day, dateIn, dateToday)
+            vTotalDwell = vTotalDwell + wD
+
+            vNewdWell = wD - 3
+
+            row("dwell") = 0
+            row("1-7day") = 0
+            row("8-14day") = 0
+            row(">15day") = 0
+
+            row("dwell") = wD
+
+            If vNewdWell <= 3 Then
+                vTotal7Day = vTotal7Day + 0
+                row("1-7day") = 0
+                row("8-14day") = 0
+                row(">15day") = 0
+            End If
+
+            If vNewdWell > 0 And vNewdWell <= 7 Then
+                vTotal7Day = vTotal7Day + vNewdWell
+                row("1-7day") = vNewdWell
+            End If
+            If vNewdWell > 7 And vNewdWell <= 14 Then
+                vTotal7Day = vTotal7Day + 7
+                vTotal14Day = vTotal14Day + (vNewdWell - 7)
+                row("1-7day") = 7
+                row("8-14day") = vNewdWell - 7
+            End If
+            If vNewdWell >= 15 Then
+                vTotal7Day = vTotal7Day + 7
+                vTotal14Day = vTotal14Day + 7
+                vTotal15Day = vTotal15Day + (vNewdWell - 14)
+                row("1-7day") = 7
+                row("8-14day") = 7
+                row(">15day") = vNewdWell - 14
+            End If
+        Next
+tag_total:
+        Dim sumRow As DataRow = dtDwell.NewRow()
+        With sumRow
+            sumRow("Terminal") = "Total"
+            sumRow("dwell") = vTotalDwell
+            sumRow("1-7day") = vTotal7Day
+            sumRow("8-14day") = vTotal14Day
+            sumRow(">15day") = vTotal15Day
+        End With
+        lblTotaldWell.Text = vTotalDwell.ToString
+        lblTotal7Day.Text = vTotal7Day.ToString
+        lblTotal14Day.Text = vTotal14Day.ToString
+        lblTotal15Day.Text = vTotal15Day.ToString
+
+
+        dtDwell.Rows.Add(sumRow)
+        '----------------
+        dgDwell.DataSource = dtDwell
+        ' Resize the master DataGridView columns to fit the newly loaded data.
+        dgDwell.AutoResizeColumns()
+
+        ' Configure the details DataGridView so that its columns automatically
+        ' adjust their widths when the data changes.
+        dgDwell.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.AllCells
     End Sub
 
     Private Sub btnFullout_Click(sender As Object, e As EventArgs) Handles btnFullout.Click
@@ -194,6 +381,11 @@ Public Class frmManifestImport
         btnFullout.Enabled = False
         btnCfs.Enabled = False
         DataGridView1.DataSource = Nothing
+        dgDwell.DataSource = Nothing
+        lblTotaldWell.Text = "0"
+        lblTotal7Day.Text = "0"
+        lblTotal14Day.Text = "0"
+        lblTotal15Day.Text = "0"
         ' dgItem.DataSource = Nothing
         If File.Exists("fullout.txt") Then
             File.Delete("fullout.txt")
@@ -402,4 +594,19 @@ Public Class frmManifestImport
         vCfs.BL_Number = txtBooking.Text.Trim.ToUpper
         vCfs.Show()
     End Sub
+
+    Private Sub btnRecal_Click(sender As Object, e As EventArgs) Handles btnRecal.Click
+
+        calculate(txtDeliver.Text)
+    End Sub
+
+
+
+    Private Sub txtDeliver_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtDeliver.KeyPress
+        If e.KeyChar = Chr(13) Then
+            calculate(txtDeliver.Text)
+        End If
+    End Sub
+
+
 End Class

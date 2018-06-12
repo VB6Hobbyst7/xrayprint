@@ -25,6 +25,8 @@ Partial Class frmCFS
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblBL = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtGoodsDesc = New System.Windows.Forms.TextBox()
+        Me.txtShippingMark = New System.Windows.Forms.TextBox()
         Me.lblMeasurement = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.lblPackage = New System.Windows.Forms.Label()
@@ -34,10 +36,12 @@ Partial Class frmCFS
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.txtShipperAddr = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.lblShipperName = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.txtConsigneeAddr = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lblConsigneeName = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -45,21 +49,19 @@ Partial Class frmCFS
         Me.txtSpecialRequest = New System.Windows.Forms.TextBox()
         Me.btnPrint = New System.Windows.Forms.Button()
         Me.chkSendmail = New System.Windows.Forms.CheckBox()
-        Me.txtShippingMark = New System.Windows.Forms.TextBox()
-        Me.txtGoodsDesc = New System.Windows.Forms.TextBox()
-        Me.txtShipperAddr = New System.Windows.Forms.TextBox()
-        Me.txtConsigneeAddr = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.lblContainer = New System.Windows.Forms.Label()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.rbA0 = New System.Windows.Forms.RadioButton()
-        Me.rbB1 = New System.Windows.Forms.RadioButton()
-        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtExpire = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.lblStatus = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.rbB1 = New System.Windows.Forms.RadioButton()
+        Me.rbA0 = New System.Windows.Forms.RadioButton()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.txtReceiveDate = New System.Windows.Forms.TextBox()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtExpire = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.lblVoy = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -70,7 +72,7 @@ Partial Class frmCFS
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 31)
+        Me.Label1.Location = New System.Drawing.Point(6, 13)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(31, 13)
         Me.Label1.TabIndex = 0
@@ -80,7 +82,7 @@ Partial Class frmCFS
         '
         Me.lblBL.AutoSize = True
         Me.lblBL.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblBL.Location = New System.Drawing.Point(87, 9)
+        Me.lblBL.Location = New System.Drawing.Point(40, 2)
         Me.lblBL.Name = "lblBL"
         Me.lblBL.Size = New System.Drawing.Size(161, 37)
         Me.lblBL.TabIndex = 1
@@ -104,6 +106,24 @@ Partial Class frmCFS
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Goods Information"
+        '
+        'txtGoodsDesc
+        '
+        Me.txtGoodsDesc.Enabled = False
+        Me.txtGoodsDesc.Location = New System.Drawing.Point(9, 118)
+        Me.txtGoodsDesc.Multiline = True
+        Me.txtGoodsDesc.Name = "txtGoodsDesc"
+        Me.txtGoodsDesc.Size = New System.Drawing.Size(306, 71)
+        Me.txtGoodsDesc.TabIndex = 14
+        '
+        'txtShippingMark
+        '
+        Me.txtShippingMark.Enabled = False
+        Me.txtShippingMark.Location = New System.Drawing.Point(9, 34)
+        Me.txtShippingMark.Multiline = True
+        Me.txtShippingMark.Name = "txtShippingMark"
+        Me.txtShippingMark.Size = New System.Drawing.Size(306, 71)
+        Me.txtShippingMark.TabIndex = 13
         '
         'lblMeasurement
         '
@@ -193,6 +213,15 @@ Partial Class frmCFS
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Shipper Information"
         '
+        'txtShipperAddr
+        '
+        Me.txtShipperAddr.Enabled = False
+        Me.txtShipperAddr.Location = New System.Drawing.Point(9, 70)
+        Me.txtShipperAddr.Multiline = True
+        Me.txtShipperAddr.Name = "txtShipperAddr"
+        Me.txtShipperAddr.Size = New System.Drawing.Size(306, 58)
+        Me.txtShipperAddr.TabIndex = 15
+        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -233,6 +262,15 @@ Partial Class frmCFS
         Me.GroupBox3.TabIndex = 4
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Consignee Information"
+        '
+        'txtConsigneeAddr
+        '
+        Me.txtConsigneeAddr.Enabled = False
+        Me.txtConsigneeAddr.Location = New System.Drawing.Point(9, 54)
+        Me.txtConsigneeAddr.Multiline = True
+        Me.txtConsigneeAddr.Name = "txtConsigneeAddr"
+        Me.txtConsigneeAddr.Size = New System.Drawing.Size(306, 58)
+        Me.txtConsigneeAddr.TabIndex = 16
         '
         'Label6
         '
@@ -301,46 +339,10 @@ Partial Class frmCFS
         Me.chkSendmail.Text = "Send E-mail"
         Me.chkSendmail.UseVisualStyleBackColor = True
         '
-        'txtShippingMark
-        '
-        Me.txtShippingMark.Enabled = False
-        Me.txtShippingMark.Location = New System.Drawing.Point(9, 34)
-        Me.txtShippingMark.Multiline = True
-        Me.txtShippingMark.Name = "txtShippingMark"
-        Me.txtShippingMark.Size = New System.Drawing.Size(306, 71)
-        Me.txtShippingMark.TabIndex = 13
-        '
-        'txtGoodsDesc
-        '
-        Me.txtGoodsDesc.Enabled = False
-        Me.txtGoodsDesc.Location = New System.Drawing.Point(9, 118)
-        Me.txtGoodsDesc.Multiline = True
-        Me.txtGoodsDesc.Name = "txtGoodsDesc"
-        Me.txtGoodsDesc.Size = New System.Drawing.Size(306, 71)
-        Me.txtGoodsDesc.TabIndex = 14
-        '
-        'txtShipperAddr
-        '
-        Me.txtShipperAddr.Enabled = False
-        Me.txtShipperAddr.Location = New System.Drawing.Point(9, 70)
-        Me.txtShipperAddr.Multiline = True
-        Me.txtShipperAddr.Name = "txtShipperAddr"
-        Me.txtShipperAddr.Size = New System.Drawing.Size(306, 58)
-        Me.txtShipperAddr.TabIndex = 15
-        '
-        'txtConsigneeAddr
-        '
-        Me.txtConsigneeAddr.Enabled = False
-        Me.txtConsigneeAddr.Location = New System.Drawing.Point(9, 54)
-        Me.txtConsigneeAddr.Multiline = True
-        Me.txtConsigneeAddr.Name = "txtConsigneeAddr"
-        Me.txtConsigneeAddr.Size = New System.Drawing.Size(306, 58)
-        Me.txtConsigneeAddr.TabIndex = 16
-        '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(12, 66)
+        Me.Label8.Location = New System.Drawing.Point(6, 57)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(75, 13)
         Me.Label8.TabIndex = 8
@@ -350,7 +352,7 @@ Partial Class frmCFS
         '
         Me.lblContainer.AutoSize = True
         Me.lblContainer.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblContainer.Location = New System.Drawing.Point(87, 48)
+        Me.lblContainer.Location = New System.Drawing.Point(87, 39)
         Me.lblContainer.Name = "lblContainer"
         Me.lblContainer.Size = New System.Drawing.Size(161, 37)
         Me.lblContainer.TabIndex = 9
@@ -371,17 +373,40 @@ Partial Class frmCFS
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Terminal"
         '
-        'rbA0
+        'txtExpire
         '
-        Me.rbA0.AutoSize = True
-        Me.rbA0.Checked = True
-        Me.rbA0.Location = New System.Drawing.Point(26, 25)
-        Me.rbA0.Name = "rbA0"
-        Me.rbA0.Size = New System.Drawing.Size(38, 17)
-        Me.rbA0.TabIndex = 0
-        Me.rbA0.TabStop = True
-        Me.rbA0.Text = "A0"
-        Me.rbA0.UseVisualStyleBackColor = True
+        Me.txtExpire.Location = New System.Drawing.Point(222, 50)
+        Me.txtExpire.Name = "txtExpire"
+        Me.txtExpire.Size = New System.Drawing.Size(93, 20)
+        Me.txtExpire.TabIndex = 1
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(150, 53)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(71, 13)
+        Me.Label14.TabIndex = 8
+        Me.Label14.Text = "Expire Date  :"
+        '
+        'lblStatus
+        '
+        Me.lblStatus.AutoSize = True
+        Me.lblStatus.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblStatus.Location = New System.Drawing.Point(66, 53)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(60, 13)
+        Me.lblStatus.TabIndex = 7
+        Me.lblStatus.Text = "Description"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(14, 53)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(46, 13)
+        Me.Label10.TabIndex = 6
+        Me.Label10.Text = "Status  :"
         '
         'rbB1
         '
@@ -393,24 +418,17 @@ Partial Class frmCFS
         Me.rbB1.Text = "B1"
         Me.rbB1.UseVisualStyleBackColor = True
         '
-        'Label10
+        'rbA0
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(14, 53)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(46, 13)
-        Me.Label10.TabIndex = 6
-        Me.Label10.Text = "Status  :"
-        '
-        'lblStatus
-        '
-        Me.lblStatus.AutoSize = True
-        Me.lblStatus.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblStatus.Location = New System.Drawing.Point(66, 53)
-        Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(60, 13)
-        Me.lblStatus.TabIndex = 7
-        Me.lblStatus.Text = "Description"
+        Me.rbA0.AutoSize = True
+        Me.rbA0.Checked = True
+        Me.rbA0.Location = New System.Drawing.Point(26, 25)
+        Me.rbA0.Name = "rbA0"
+        Me.rbA0.Size = New System.Drawing.Size(38, 17)
+        Me.rbA0.TabIndex = 0
+        Me.rbA0.TabStop = True
+        Me.rbA0.Text = "A0"
+        Me.rbA0.UseVisualStyleBackColor = True
         '
         'Label13
         '
@@ -428,27 +446,32 @@ Partial Class frmCFS
         Me.txtReceiveDate.Size = New System.Drawing.Size(227, 20)
         Me.txtReceiveDate.TabIndex = 3
         '
-        'Label14
+        'Label15
         '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(150, 53)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(71, 13)
-        Me.Label14.TabIndex = 8
-        Me.Label14.Text = "Expire Date  :"
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(50, 77)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(31, 13)
+        Me.Label15.TabIndex = 12
+        Me.Label15.Text = "Voy :"
         '
-        'txtExpire
+        'lblVoy
         '
-        Me.txtExpire.Location = New System.Drawing.Point(222, 50)
-        Me.txtExpire.Name = "txtExpire"
-        Me.txtExpire.Size = New System.Drawing.Size(93, 20)
-        Me.txtExpire.TabIndex = 1
+        Me.lblVoy.AutoSize = True
+        Me.lblVoy.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblVoy.Location = New System.Drawing.Point(91, 78)
+        Me.lblVoy.Name = "lblVoy"
+        Me.lblVoy.Size = New System.Drawing.Size(25, 13)
+        Me.lblVoy.TabIndex = 13
+        Me.lblVoy.Text = "Voy"
         '
         'frmCFS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(700, 524)
+        Me.Controls.Add(Me.lblVoy)
+        Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.txtReceiveDate)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.GroupBox5)
@@ -518,4 +541,6 @@ Partial Class frmCFS
     Friend WithEvents txtReceiveDate As TextBox
     Friend WithEvents txtExpire As TextBox
     Friend WithEvents Label14 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents lblVoy As Label
 End Class

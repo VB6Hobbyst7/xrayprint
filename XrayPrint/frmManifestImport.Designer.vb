@@ -30,9 +30,6 @@ Partial Class frmManifestImport
         Me.btnGetData = New System.Windows.Forms.Button()
         Me.txtBooking = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.lblRecord = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.chkAddress = New System.Windows.Forms.CheckBox()
         Me.txtDateUntil = New System.Windows.Forms.TextBox()
@@ -58,11 +55,39 @@ Partial Class frmManifestImport
         Me.cbTarRif = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.btnCfs = New System.Windows.Forms.Button()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.lblRecord = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.btnRecal = New System.Windows.Forms.Button()
+        Me.txtDeliver = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.lblTotal15Day = New System.Windows.Forms.Label()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.lblTotal14Day = New System.Windows.Forms.Label()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.lblTotal7Day = New System.Windows.Forms.Label()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.lblTotaldWell = New System.Windows.Forms.Label()
+        Me.lblDwellRecord = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.dgDwell = New System.Windows.Forms.DataGridView()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         CType(Me.dgItem, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabControl1.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage2.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
+        CType(Me.dgDwell, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -146,32 +171,6 @@ Partial Class frmManifestImport
         Me.Label1.Size = New System.Drawing.Size(69, 13)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "B/L number :"
-        '
-        'DataGridView1
-        '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(8, 149)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(554, 319)
-        Me.DataGridView1.TabIndex = 2
-        '
-        'lblRecord
-        '
-        Me.lblRecord.AutoSize = True
-        Me.lblRecord.Location = New System.Drawing.Point(48, 133)
-        Me.lblRecord.Name = "lblRecord"
-        Me.lblRecord.Size = New System.Drawing.Size(13, 13)
-        Me.lblRecord.TabIndex = 6
-        Me.lblRecord.Text = "0"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(5, 133)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(37, 13)
-        Me.Label4.TabIndex = 5
-        Me.Label4.Text = "Total :"
         '
         'GroupBox2
         '
@@ -407,37 +406,252 @@ Partial Class frmManifestImport
         'btnCfs
         '
         Me.btnCfs.Enabled = False
-        Me.btnCfs.Location = New System.Drawing.Point(469, 119)
+        Me.btnCfs.Location = New System.Drawing.Point(447, 6)
         Me.btnCfs.Name = "btnCfs"
         Me.btnCfs.Size = New System.Drawing.Size(92, 30)
         Me.btnCfs.TabIndex = 9
         Me.btnCfs.Text = "CFS or LCL"
         Me.btnCfs.UseVisualStyleBackColor = True
         '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Location = New System.Drawing.Point(8, 113)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(553, 368)
+        Me.TabControl1.TabIndex = 10
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.DataGridView1)
+        Me.TabPage1.Controls.Add(Me.btnCfs)
+        Me.TabPage1.Controls.Add(Me.lblRecord)
+        Me.TabPage1.Controls.Add(Me.Label4)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(545, 342)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "Container Detail"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Location = New System.Drawing.Point(6, 42)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(533, 294)
+        Me.DataGridView1.TabIndex = 9
+        '
+        'lblRecord
+        '
+        Me.lblRecord.AutoSize = True
+        Me.lblRecord.Location = New System.Drawing.Point(46, 23)
+        Me.lblRecord.Name = "lblRecord"
+        Me.lblRecord.Size = New System.Drawing.Size(13, 13)
+        Me.lblRecord.TabIndex = 8
+        Me.lblRecord.Text = "0"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(3, 23)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(37, 13)
+        Me.Label4.TabIndex = 7
+        Me.Label4.Text = "Total :"
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Controls.Add(Me.btnRecal)
+        Me.TabPage2.Controls.Add(Me.txtDeliver)
+        Me.TabPage2.Controls.Add(Me.Label12)
+        Me.TabPage2.Controls.Add(Me.GroupBox7)
+        Me.TabPage2.Controls.Add(Me.GroupBox6)
+        Me.TabPage2.Controls.Add(Me.GroupBox5)
+        Me.TabPage2.Controls.Add(Me.GroupBox4)
+        Me.TabPage2.Controls.Add(Me.lblDwellRecord)
+        Me.TabPage2.Controls.Add(Me.Label13)
+        Me.TabPage2.Controls.Add(Me.dgDwell)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(545, 342)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Dwell Detail"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'btnRecal
+        '
+        Me.btnRecal.Location = New System.Drawing.Point(478, 6)
+        Me.btnRecal.Name = "btnRecal"
+        Me.btnRecal.Size = New System.Drawing.Size(56, 20)
+        Me.btnRecal.TabIndex = 19
+        Me.btnRecal.Text = "Re-Cal"
+        Me.btnRecal.UseVisualStyleBackColor = True
+        '
+        'txtDeliver
+        '
+        Me.txtDeliver.Location = New System.Drawing.Point(369, 6)
+        Me.txtDeliver.Name = "txtDeliver"
+        Me.txtDeliver.Size = New System.Drawing.Size(103, 20)
+        Me.txtDeliver.TabIndex = 18
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(307, 9)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(63, 13)
+        Me.Label12.TabIndex = 17
+        Me.Label12.Text = "Deliver On :"
+        '
+        'GroupBox7
+        '
+        Me.GroupBox7.Controls.Add(Me.lblTotal15Day)
+        Me.GroupBox7.Location = New System.Drawing.Point(369, 252)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(115, 84)
+        Me.GroupBox7.TabIndex = 16
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "Total > 15 Day"
+        '
+        'lblTotal15Day
+        '
+        Me.lblTotal15Day.AutoSize = True
+        Me.lblTotal15Day.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotal15Day.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblTotal15Day.Location = New System.Drawing.Point(18, 18)
+        Me.lblTotal15Day.Name = "lblTotal15Day"
+        Me.lblTotal15Day.Size = New System.Drawing.Size(78, 55)
+        Me.lblTotal15Day.TabIndex = 1
+        Me.lblTotal15Day.Text = "00"
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.lblTotal14Day)
+        Me.GroupBox6.Location = New System.Drawing.Point(248, 252)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(115, 84)
+        Me.GroupBox6.TabIndex = 15
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Total 8-15 Day"
+        '
+        'lblTotal14Day
+        '
+        Me.lblTotal14Day.AutoSize = True
+        Me.lblTotal14Day.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotal14Day.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblTotal14Day.Location = New System.Drawing.Point(18, 15)
+        Me.lblTotal14Day.Name = "lblTotal14Day"
+        Me.lblTotal14Day.Size = New System.Drawing.Size(78, 55)
+        Me.lblTotal14Day.TabIndex = 1
+        Me.lblTotal14Day.Text = "00"
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.lblTotal7Day)
+        Me.GroupBox5.Location = New System.Drawing.Point(127, 252)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(115, 84)
+        Me.GroupBox5.TabIndex = 14
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Total 1-7 Day"
+        '
+        'lblTotal7Day
+        '
+        Me.lblTotal7Day.AutoSize = True
+        Me.lblTotal7Day.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotal7Day.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblTotal7Day.Location = New System.Drawing.Point(18, 15)
+        Me.lblTotal7Day.Name = "lblTotal7Day"
+        Me.lblTotal7Day.Size = New System.Drawing.Size(78, 55)
+        Me.lblTotal7Day.TabIndex = 1
+        Me.lblTotal7Day.Text = "00"
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.lblTotaldWell)
+        Me.GroupBox4.Location = New System.Drawing.Point(6, 252)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(115, 84)
+        Me.GroupBox4.TabIndex = 13
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Total dWell"
+        '
+        'lblTotaldWell
+        '
+        Me.lblTotaldWell.AutoSize = True
+        Me.lblTotaldWell.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotaldWell.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblTotaldWell.Location = New System.Drawing.Point(14, 16)
+        Me.lblTotaldWell.Name = "lblTotaldWell"
+        Me.lblTotaldWell.Size = New System.Drawing.Size(78, 55)
+        Me.lblTotaldWell.TabIndex = 0
+        Me.lblTotaldWell.Text = "00"
+        '
+        'lblDwellRecord
+        '
+        Me.lblDwellRecord.AutoSize = True
+        Me.lblDwellRecord.Location = New System.Drawing.Point(46, 7)
+        Me.lblDwellRecord.Name = "lblDwellRecord"
+        Me.lblDwellRecord.Size = New System.Drawing.Size(13, 13)
+        Me.lblDwellRecord.TabIndex = 12
+        Me.lblDwellRecord.Text = "0"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(3, 7)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(37, 13)
+        Me.Label13.TabIndex = 11
+        Me.Label13.Text = "Total :"
+        '
+        'dgDwell
+        '
+        Me.dgDwell.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgDwell.Location = New System.Drawing.Point(3, 32)
+        Me.dgDwell.Name = "dgDwell"
+        Me.dgDwell.Size = New System.Drawing.Size(533, 214)
+        Me.dgDwell.TabIndex = 10
+        '
         'frmManifestImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1047, 481)
-        Me.Controls.Add(Me.btnCfs)
+        Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.lblRecord)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "frmManifestImport"
         Me.Text = "Import Container"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         CType(Me.dgItem, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabControl1.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage2.ResumeLayout(False)
+        Me.TabPage2.PerformLayout()
+        Me.GroupBox7.ResumeLayout(False)
+        Me.GroupBox7.PerformLayout()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
+        CType(Me.dgDwell, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
@@ -445,9 +659,6 @@ Partial Class frmManifestImport
     Friend WithEvents btnGetData As Button
     Friend WithEvents txtBooking As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents lblRecord As Label
-    Friend WithEvents Label4 As Label
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents btnFullout As Button
     Friend WithEvents Label3 As Label
@@ -477,4 +688,24 @@ Partial Class frmManifestImport
     Friend WithEvents Label10 As Label
     Friend WithEvents chkAddress As CheckBox
     Friend WithEvents btnCfs As Button
+    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents lblRecord As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents dgDwell As DataGridView
+    Friend WithEvents lblDwellRecord As Label
+    Friend WithEvents Label13 As Label
+    Friend WithEvents GroupBox7 As GroupBox
+    Friend WithEvents lblTotal15Day As Label
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents lblTotal14Day As Label
+    Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents lblTotal7Day As Label
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents lblTotaldWell As Label
+    Friend WithEvents btnRecal As Button
+    Friend WithEvents txtDeliver As TextBox
+    Friend WithEvents Label12 As Label
 End Class
