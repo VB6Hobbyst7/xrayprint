@@ -266,7 +266,15 @@ def main():
 				pyautogui.press('down')
 
 
-				remark2 = remark.split('/')[0]
+				# remark2 = remark.split('/')[0] -- 
+				remark3 = remark.split('/')[0]
+				remark_split = remark3.split(' ')
+				if len(remark_split) > 1:
+					remark2 = '%s %s' % (remark_split[0],remark_split[1])
+				else :
+					remark2 = remark_split[0]
+
+
 				pyautogui.typewrite('%s*' % remark2[:10], interval=secs_between_keys)
 				pyautogui.press('enter')
 				print ('======Finished=======')
