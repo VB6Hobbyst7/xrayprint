@@ -156,7 +156,7 @@ def main():
 
 		fname = 'fullout_setting.json'
 
-		regex = "Session A - [24 x 80]"
+		regex = "Session C - [24 x 80]"
 		state_left = win32api.GetKeyState(0x01)  # Left button down = 0 or 1. Button up = -127 or -128
 		state_right = win32api.GetKeyState(0x02)  # Right button down = 0 or 1. Button up = -127 or -128
 

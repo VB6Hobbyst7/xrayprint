@@ -411,6 +411,7 @@ Partial Class frmCFS
         'rbB1
         '
         Me.rbB1.AutoSize = True
+        Me.rbB1.Enabled = False
         Me.rbB1.Location = New System.Drawing.Point(88, 25)
         Me.rbB1.Name = "rbB1"
         Me.rbB1.Size = New System.Drawing.Size(38, 17)
@@ -422,6 +423,7 @@ Partial Class frmCFS
         '
         Me.rbA0.AutoSize = True
         Me.rbA0.Checked = True
+        Me.rbA0.Enabled = False
         Me.rbA0.Location = New System.Drawing.Point(26, 25)
         Me.rbA0.Name = "rbA0"
         Me.rbA0.Size = New System.Drawing.Size(38, 17)

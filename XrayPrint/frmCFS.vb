@@ -56,6 +56,15 @@ Public Class frmCFS
         End Select
         lblStatus.Text = vStatus
         lblVoy.Text = dtBooking.Rows(0).Item("voy")
+
+        '2835 == A0
+        '2811 == B1
+        If dtBooking.Rows(0).Item("shedNumberReleasePort") = "2835" Then
+            rbA0.Checked = True
+        Else
+            rbB1.Checked = True
+        End If
+
     End Sub
 
     Friend Function getContainers(ByVal booking As String) As DataTable
@@ -90,7 +99,8 @@ Public Class frmCFS
                         ShipperInfo_Name,ShipperInfo_NameAndAddress,
                         ConsigneeInfo_Name,ConsigneeInfo_NameAndAddress,
                         MeasurementInfo_Measurement meas,MeasurementInfo_unitcode unit_meas,
-                        containerdetail_status
+                        containerdetail_status,
+                        shedNumberReleasePort
                  FROM MMAN
                  where masterbl = @booking"
 
