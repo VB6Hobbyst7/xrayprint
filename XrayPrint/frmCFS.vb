@@ -1,4 +1,5 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Data.Odbc
+Imports System.Data.SqlClient
 Imports System.Globalization
 Imports Microsoft.Office
 Imports outlook = Microsoft.Office.Interop.Outlook
@@ -6,12 +7,33 @@ Imports outlook = Microsoft.Office.Interop.Outlook
 Public Class frmCFS
     Dim dtBooking As DataTable
     Dim vBLnumber As String
+    Dim vVoynumber As String
+    Dim vCallSignnumber As String
     Public Property BL_Number() As String
         Get
             Return vBLnumber
         End Get
         Set(ByVal value As String)
             vBLnumber = value
+        End Set
+    End Property
+
+    Public Property Voy_Number() As String
+        Get
+            Return vVoynumber
+        End Get
+        Set(ByVal value As String)
+            vVoynumber = value
+        End Set
+    End Property
+
+
+    Public Property CallSign_Number() As String
+        Get
+            Return vCallSignnumber
+        End Get
+        Set(ByVal value As String)
+            vCallSignnumber = value
         End Set
     End Property
 
@@ -63,6 +85,17 @@ Public Class frmCFS
             rbA0.Checked = True
         Else
             rbB1.Checked = True
+        End If
+
+        'Show Vessel Detail
+        Dim dtVessel As DataTable
+        dtVessel = getDwell(lblContainer.Text.Trim, vCallSignnumber, vVoynumber)
+        If dtVessel.Rows.Count > 0 Then
+            lblVesselCode.Text = dtVessel.Rows(0).Item("vessel_code")
+            lblVesselName.Text = dtVessel.Rows(0).Item("vessel_name")
+        Else
+            lblVesselCode.Text = ""
+            lblVesselName.Text = ""
         End If
 
     End Sub
@@ -139,6 +172,143 @@ Public Class frmCFS
 
     End Function
 
+    Friend Function getDwell(ByVal continer As String,
+                             callSign As String,
+                             voy As String) As DataTable
+
+        Dim cmd As New OdbcCommand
+        Dim sqlBooking As String
+        Dim da As New OdbcDataAdapter
+
+        Dim con As OdbcConnection
+        Dim connectionString As String
+        connectionString = "DSN=CTCS1;UserID=OPSCC;Password=OPSCC21;DataCompression=True;"
+        con = New OdbcConnection(connectionString)
+        con.Open()
+        '                HDTD03 as time_in,
+        sqlBooking = "SELECT 
+                CNID03 as container,
+                HDDT03 as date_in,
+                TOPR01 as terminal,
+                MVVA47 as vessel_name,
+                VMID01 as vessel_code
+                FROM S2114C2V.LCB1DAT.DISCHARGE DISCHARGE
+                where DISCHARGE.CNID03 =? and DISCHARGE.MVV447 =? and 
+                    DISCHARGE.RSIN01=?"
+
+        ' Create an OleDbDataAdapter object
+        Dim adapter As OdbcDataAdapter = New OdbcDataAdapter()
+        'adapter.SelectCommand = New OdbcCommand(sql, con)
+
+
+        Dim ds As New DataTable
+
+        ' Create Data Set object
+        'Dim ds As DataSet = New DataSet("orders")
+        ' Call DataAdapter's Fill method to fill data from the
+        ' DataAdapter to the DataSet 
+        'adapter.Fill(ds)
+
+        With cmd
+
+            .CommandType = CommandType.Text
+            .Connection = con
+            .CommandTimeout = 100
+
+            .CommandText = sqlBooking
+            .Parameters.Add(New OdbcParameter("containers", continer))
+            .Parameters.Add(New OdbcParameter("callsign", callSign))
+            .Parameters.Add(New OdbcParameter("voy", voy))
+
+        End With
+
+
+
+        'In case Search Booking by Container
+
+        da.SelectCommand = cmd
+        da.Fill(ds)
+
+
+
+
+
+        Return ds
+
+
+    End Function
+    Friend Function getBooking(container As String, booking As String) As DataTable
+
+        Dim cmd As New OdbcCommand
+        Dim sqlContainer As String
+        Dim da As New OdbcDataAdapter
+
+        'OdbcConnection
+        Dim con As OdbcConnection
+        Dim connectionString As String
+        connectionString = "DSN=CTCS1;UserID=OPSCC;Password=OPSCC21;DataCompression=True;"
+        con = New OdbcConnection(connectionString)
+        con.Open()
+
+
+
+        sqlContainer = "SELECT 
+                BOOKLIST.CNID94 as container,
+                BOOKLIST.HIDT94 as date_in, 
+                BOOKLIST.CNPT03 as location,
+                BOOKLIST.ORRF93 as Booking,
+                BOOKLIST.LYND03 as line,
+                BOOKLIST.ORGV05 as agent,
+                BOOKLIST.CNIS03 as iso,
+                BOOKLIST.CNLL03 as size,  
+                BOOKLIST.VMID01 as vessel_code,
+                BOOKLIST.MVVA47 as vessel_name,
+                BOOKLIST.MVV247 as vessel_type,
+                BOOKLIST.RSIN01 as voy_in, 
+                BOOKLIST.RSUT01 as voy_out, 
+                BOOKLIST.OP0103 
+                FROM S2114C2V.LCB1DAT.BOOKLIST BOOKLIST
+                where BOOKLIST.CNID94 = ? and BOOKLIST.ORRF93 = ? "
+        'BOOKLIST.CNID94 = ? and 
+
+
+        ' Create an OleDbDataAdapter object
+        Dim adapter As OdbcDataAdapter = New OdbcDataAdapter()
+
+        With cmd
+
+            .CommandType = CommandType.Text
+            .Connection = con
+            .CommandTimeout = 100
+
+            .CommandText = sqlContainer
+            .Parameters.Add(New OdbcParameter("container", container))
+            .Parameters.Add(New OdbcParameter("booking", booking))
+
+        End With
+        'In case Search Booking by Container
+        Dim dsContainer As New DataTable
+        da.SelectCommand = cmd
+        da.Fill(dsContainer)
+
+        Return dsContainer
+
+        'Dim lastRow As DataRow
+        'lastRow = dsContainer.Rows.Cast(Of DataRow)().LastOrDefault()
+
+        'If lastRow Is Nothing Then
+        '    'The table contains no rows.
+        '    Return ""
+        'Else
+        '    'Use lastRow here.
+        '    Return lastRow.Item("booking").trim()
+
+        'End If
+
+
+
+    End Function
+
     Function get_containers() As String
         Dim vList As String = ""
         For Each row As DataRow In dtBooking.Rows
@@ -161,6 +331,11 @@ Public Class frmCFS
                                         <tr>
                                             <td>Voy:</td>
                                             <td>" & lblVoy.Text & "</td>
+                                        </tr>
+                                        
+                                          <tr>
+                                            <td>Vessel :</td>
+                                            <td>" & lblVesselCode.Text.Trim & "/" & lblVesselName.Text.Trim & "</td>
                                         </tr>
                                         <tr>
                                             <td>Container:</td>
@@ -323,7 +498,7 @@ Public Class frmCFS
             'Consignee
             .Cells(6, 3) = lblConsigneeName.Text
             .Cells(7, 3) = txtConsigneeAddr.Text
-            .Cells(9, 3) = lblVoy.Text
+            .Cells(9, 3) = lblVesselCode.Text.Trim & "/" & lblVesselName.Text.Trim & " (Voy:" & lblVoy.Text & ")"
             .Cells(10, 3) = txtReceiveDate.Text
             'Container
             .Cells(12, 3) = lblBL.Text

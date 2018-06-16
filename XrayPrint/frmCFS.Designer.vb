@@ -62,6 +62,9 @@ Partial Class frmCFS
         Me.txtReceiveDate = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.lblVoy = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.lblVesselName = New System.Windows.Forms.Label()
+        Me.lblVesselCode = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -342,7 +345,7 @@ Partial Class frmCFS
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(6, 57)
+        Me.Label8.Location = New System.Drawing.Point(6, 56)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(75, 13)
         Me.Label8.TabIndex = 8
@@ -352,7 +355,7 @@ Partial Class frmCFS
         '
         Me.lblContainer.AutoSize = True
         Me.lblContainer.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblContainer.Location = New System.Drawing.Point(87, 39)
+        Me.lblContainer.Location = New System.Drawing.Point(87, 38)
         Me.lblContainer.Name = "lblContainer"
         Me.lblContainer.Size = New System.Drawing.Size(161, 37)
         Me.lblContainer.TabIndex = 9
@@ -451,7 +454,7 @@ Partial Class frmCFS
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(50, 77)
+        Me.Label15.Location = New System.Drawing.Point(293, 9)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(31, 13)
         Me.Label15.TabIndex = 12
@@ -461,17 +464,50 @@ Partial Class frmCFS
         '
         Me.lblVoy.AutoSize = True
         Me.lblVoy.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblVoy.Location = New System.Drawing.Point(91, 78)
+        Me.lblVoy.Location = New System.Drawing.Point(334, 10)
         Me.lblVoy.Name = "lblVoy"
         Me.lblVoy.Size = New System.Drawing.Size(25, 13)
         Me.lblVoy.TabIndex = 13
         Me.lblVoy.Text = "Voy"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(6, 77)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(72, 13)
+        Me.Label16.TabIndex = 14
+        Me.Label16.Text = "Vessel Name:"
+        '
+        'lblVesselName
+        '
+        Me.lblVesselName.AutoSize = True
+        Me.lblVesselName.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblVesselName.Location = New System.Drawing.Point(77, 77)
+        Me.lblVesselName.Name = "lblVesselName"
+        Me.lblVesselName.Size = New System.Drawing.Size(38, 13)
+        Me.lblVesselName.TabIndex = 15
+        Me.lblVesselName.Text = "Vessel"
+        '
+        'lblVesselCode
+        '
+        Me.lblVesselCode.AutoSize = True
+        Me.lblVesselCode.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblVesselCode.Location = New System.Drawing.Point(318, 77)
+        Me.lblVesselCode.Name = "lblVesselCode"
+        Me.lblVesselCode.Size = New System.Drawing.Size(38, 13)
+        Me.lblVesselCode.TabIndex = 16
+        Me.lblVesselCode.Text = "Vessel"
+        Me.lblVesselCode.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'frmCFS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(700, 524)
+        Me.Controls.Add(Me.lblVesselCode)
+        Me.Controls.Add(Me.lblVesselName)
+        Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.lblVoy)
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.txtReceiveDate)
@@ -545,4 +581,7 @@ Partial Class frmCFS
     Friend WithEvents Label14 As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents lblVoy As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents lblVesselName As Label
+    Friend WithEvents lblVesselCode As Label
 End Class

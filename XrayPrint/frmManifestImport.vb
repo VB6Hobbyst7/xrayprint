@@ -592,6 +592,8 @@ tag_total:
     Private Sub btnCfs_Click(sender As Object, e As EventArgs) Handles btnCfs.Click
         Dim vCfs As New frmCFS
         vCfs.BL_Number = txtBooking.Text.Trim.ToUpper
+        vCfs.Voy_Number = dtBooking.Rows(0).Item("voy")
+        vCfs.CallSign_Number = dtBooking.Rows(0).Item("callsign")
         vCfs.Show()
     End Sub
 
