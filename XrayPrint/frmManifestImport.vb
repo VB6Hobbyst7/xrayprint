@@ -20,6 +20,60 @@ Public Class frmManifestImport
         Return Mid(vList, 1, Len(vList) - 1)
     End Function
 
+
+    Friend Function getLineAgent(ByVal continer As String) As DataTable
+
+        Dim cmd As New OdbcCommand
+        Dim sqlBooking As String
+        Dim da As New OdbcDataAdapter
+
+        Dim con As OdbcConnection
+        Dim connectionString As String
+        connectionString = "DSN=CTCS1;UserID=OPSCC;Password=OPSCC21;DataCompression=True;"
+        con = New OdbcConnection(connectionString)
+        con.Open()
+        '                HDTD03 as time_in,
+        sqlBooking = "SELECT 
+                CNID03 as container,
+                LYND05 as line,
+                ORGV05 as agent,
+                HDDT03 as date_in,
+                TOPR01 as terminal
+                FROM S2114C2V.LCB1DAT.DISCHARGE DISCHARGE
+                where DISCHARGE.CNID03 =? 
+                order by DISCHARGE.HDDT03"
+
+        ' Create an OleDbDataAdapter object
+        Dim adapter As OdbcDataAdapter = New OdbcDataAdapter()
+        'adapter.SelectCommand = New OdbcCommand(sql, con)
+
+
+        Dim ds As New DataTable
+
+        ' Create Data Set object
+        'Dim ds As DataSet = New DataSet("orders")
+        ' Call DataAdapter's Fill method to fill data from the
+        ' DataAdapter to the DataSet 
+        'adapter.Fill(ds)
+
+        With cmd
+
+            .CommandType = CommandType.Text
+            .Connection = con
+            .CommandTimeout = 100
+
+            .CommandText = sqlBooking
+            .Parameters.Add(New OdbcParameter("container", continer))
+
+        End With
+
+        da.SelectCommand = cmd
+        da.Fill(ds)
+        Return ds
+
+
+    End Function
+
     Friend Function getDwell(ByVal continerList As String,
                              callSign As String,
                              voy As String) As DataTable
@@ -161,8 +215,15 @@ Public Class frmManifestImport
     Sub checkFirstContainer()
         If chkCheckFirst.Checked Then
             Dim vFirstCont As String = ""
+            Dim dtLineAgent As DataTable
             If dtBooking.Rows.Count > 0 Then
                 vFirstCont = dtBooking.Rows(0).Item("container")
+                'Get Line and Agent
+                dtLineAgent = getLineAgent(vFirstCont)
+                If dtLineAgent.Rows.Count > 0 Then
+                    txtLine.Text = dtLineAgent.Rows(dtLineAgent.Rows.Count - 1).Item("line").ToString.Trim
+                    txtAgent.Text = dtLineAgent.Rows(dtLineAgent.Rows.Count - 1).Item("agent").ToString.Trim
+                End If
                 'Make container.txt
                 createFullOutText(dtBooking, txtLine.Text.Trim, txtAgent.Text.Trim,
                           txtDateUntil.Text.Trim.ToUpper, txtCarrier.Text.Trim.ToUpper,
