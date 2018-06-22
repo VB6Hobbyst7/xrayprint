@@ -230,12 +230,20 @@ Public Class frmManifestImport
                           txtShore.Text.Trim.ToUpper, "container.txt")
                 'execute bat file
                 RunCommandCom("execute_check.bat", "", False)
+                txtDateUntil.Select()
             End If
+        Else
+            txtLine.Select()
         End If
     End Sub
 
     Sub getContainer(vBooking As String)
 
+        txtLine.Text = ""
+        txtAgent.Text = ""
+        txtDateUntil.Text = ""
+        txtCarrier.Text = ""
+        txtShore.Text = ""
 
 
         dtBooking = getContainers(vBooking)
@@ -692,5 +700,39 @@ tag_total:
         End If
     End Sub
 
+    Private Sub txtBooking_GotFocus(sender As Object, e As EventArgs) Handles txtBooking.GotFocus
+        txtBooking.SelectAll()
+    End Sub
 
+
+
+    Private Sub txtDateUntil_SizeChanged(sender As Object, e As EventArgs) Handles txtDateUntil.SizeChanged
+
+    End Sub
+
+    Private Sub txtDateUntil_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtDateUntil.KeyPress
+        If e.KeyChar = Chr(13) Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+
+    Private Sub txtCarrier_TextChanged(sender As Object, e As EventArgs) Handles txtCarrier.TextChanged
+
+    End Sub
+
+    Private Sub txtCarrier_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCarrier.KeyPress
+        If e.KeyChar = Chr(13) Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+
+    Private Sub txtShore_TextChanged(sender As Object, e As EventArgs) Handles txtShore.TextChanged
+
+    End Sub
+
+    Private Sub txtShore_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtShore.KeyPress
+        If e.KeyChar = Chr(13) Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
 End Class

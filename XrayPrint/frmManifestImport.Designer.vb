@@ -23,6 +23,7 @@ Partial Class frmManifestImport
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.chkCheckFirst = New System.Windows.Forms.CheckBox()
         Me.lblGross = New System.Windows.Forms.Label()
         Me.lblPackage = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -75,7 +76,6 @@ Partial Class frmManifestImport
         Me.lblDwellRecord = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.dgDwell = New System.Windows.Forms.DataGridView()
-        Me.chkCheckFirst = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -107,6 +107,18 @@ Partial Class frmManifestImport
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "B/L Detail"
+        '
+        'chkCheckFirst
+        '
+        Me.chkCheckFirst.AutoSize = True
+        Me.chkCheckFirst.Checked = True
+        Me.chkCheckFirst.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkCheckFirst.Location = New System.Drawing.Point(445, 54)
+        Me.chkCheckFirst.Name = "chkCheckFirst"
+        Me.chkCheckFirst.Size = New System.Drawing.Size(122, 17)
+        Me.chkCheckFirst.TabIndex = 7
+        Me.chkCheckFirst.Text = "check first container"
+        Me.chkCheckFirst.UseVisualStyleBackColor = True
         '
         'lblGross
         '
@@ -198,10 +210,12 @@ Partial Class frmManifestImport
         'chkAddress
         '
         Me.chkAddress.AutoSize = True
+        Me.chkAddress.Checked = True
+        Me.chkAddress.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkAddress.Location = New System.Drawing.Point(180, 80)
         Me.chkAddress.Name = "chkAddress"
         Me.chkAddress.Size = New System.Drawing.Size(120, 17)
-        Me.chkAddress.TabIndex = 8
+        Me.chkAddress.TabIndex = 7
         Me.chkAddress.Text = "Go to Address page"
         Me.chkAddress.UseVisualStyleBackColor = True
         '
@@ -259,7 +273,7 @@ Partial Class frmManifestImport
         Me.btnFullout.Location = New System.Drawing.Point(350, 39)
         Me.btnFullout.Name = "btnFullout"
         Me.btnFullout.Size = New System.Drawing.Size(113, 43)
-        Me.btnFullout.TabIndex = 7
+        Me.btnFullout.TabIndex = 8
         Me.btnFullout.Text = "Import to CTCS"
         Me.btnFullout.UseVisualStyleBackColor = True
         '
@@ -619,16 +633,6 @@ Partial Class frmManifestImport
         Me.dgDwell.Name = "dgDwell"
         Me.dgDwell.Size = New System.Drawing.Size(533, 214)
         Me.dgDwell.TabIndex = 10
-        '
-        'chkCheckFirst
-        '
-        Me.chkCheckFirst.AutoSize = True
-        Me.chkCheckFirst.Location = New System.Drawing.Point(445, 54)
-        Me.chkCheckFirst.Name = "chkCheckFirst"
-        Me.chkCheckFirst.Size = New System.Drawing.Size(122, 17)
-        Me.chkCheckFirst.TabIndex = 7
-        Me.chkCheckFirst.Text = "check first container"
-        Me.chkCheckFirst.UseVisualStyleBackColor = True
         '
         'frmManifestImport
         '
