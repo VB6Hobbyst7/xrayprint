@@ -75,6 +75,7 @@ Partial Class frmManifestImport
         Me.lblDwellRecord = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.dgDwell = New System.Windows.Forms.DataGridView()
+        Me.chkCheckFirst = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -92,6 +93,7 @@ Partial Class frmManifestImport
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.chkCheckFirst)
         Me.GroupBox1.Controls.Add(Me.lblGross)
         Me.GroupBox1.Controls.Add(Me.lblPackage)
         Me.GroupBox1.Controls.Add(Me.Label11)
@@ -101,7 +103,7 @@ Partial Class frmManifestImport
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(8, 10)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(554, 100)
+        Me.GroupBox1.Size = New System.Drawing.Size(562, 100)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "B/L Detail"
@@ -150,7 +152,7 @@ Partial Class frmManifestImport
         '
         Me.btnGetData.Location = New System.Drawing.Point(444, 23)
         Me.btnGetData.Name = "btnGetData"
-        Me.btnGetData.Size = New System.Drawing.Size(95, 37)
+        Me.btnGetData.Size = New System.Drawing.Size(95, 27)
         Me.btnGetData.TabIndex = 2
         Me.btnGetData.Text = "Get Data"
         Me.btnGetData.UseVisualStyleBackColor = True
@@ -618,6 +620,16 @@ Partial Class frmManifestImport
         Me.dgDwell.Size = New System.Drawing.Size(533, 214)
         Me.dgDwell.TabIndex = 10
         '
+        'chkCheckFirst
+        '
+        Me.chkCheckFirst.AutoSize = True
+        Me.chkCheckFirst.Location = New System.Drawing.Point(445, 54)
+        Me.chkCheckFirst.Name = "chkCheckFirst"
+        Me.chkCheckFirst.Size = New System.Drawing.Size(122, 17)
+        Me.chkCheckFirst.TabIndex = 7
+        Me.chkCheckFirst.Text = "check first container"
+        Me.chkCheckFirst.UseVisualStyleBackColor = True
+        '
         'frmManifestImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -708,4 +720,5 @@ Partial Class frmManifestImport
     Friend WithEvents btnRecal As Button
     Friend WithEvents txtDeliver As TextBox
     Friend WithEvents Label12 As Label
+    Friend WithEvents chkCheckFirst As CheckBox
 End Class

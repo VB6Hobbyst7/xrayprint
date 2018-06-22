@@ -134,6 +134,9 @@
     <None Include="execute_address.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="execute_check.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="execute_fullout.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -200,6 +203,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="check_container.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="customer_address.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

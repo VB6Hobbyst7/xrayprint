@@ -153,6 +153,24 @@ Public Class frmManifestImport
         Dim vBooking As String
         vBooking = txtBooking.Text.Trim.ToUpper
         getContainer(vBooking)
+
+        checkFirstContainer()
+
+    End Sub
+
+    Sub checkFirstContainer()
+        If chkCheckFirst.Checked Then
+            Dim vFirstCont As String = ""
+            If dtBooking.Rows.Count > 0 Then
+                vFirstCont = dtBooking.Rows(0).Item("container")
+                'Make container.txt
+                createFullOutText(dtBooking, txtLine.Text.Trim, txtAgent.Text.Trim,
+                          txtDateUntil.Text.Trim.ToUpper, txtCarrier.Text.Trim.ToUpper,
+                          txtShore.Text.Trim.ToUpper, "container.txt")
+                'execute bat file
+                RunCommandCom("execute_check.bat", "", False)
+            End If
+        End If
     End Sub
 
     Sub getContainer(vBooking As String)
@@ -314,8 +332,9 @@ tag_total:
     End Sub
 
     Public Shared Sub createFullOutText(dt As DataTable, vLine As String, vAgent As String,
-                                        vDateUntil As String, vCarrier As String, vShore As String)
-        Dim path As String = "fullout.txt"
+                                        vDateUntil As String, vCarrier As String, vShore As String,
+                                        Optional path As String = "fullout.txt")
+        'Dim path As String = "fullout.txt"
 
         If File.Exists(path) Then
             File.Delete(path)
@@ -398,6 +417,8 @@ tag_total:
             Dim vBooking As String
             vBooking = txtBooking.Text.Trim.ToUpper
             getContainer(vBooking)
+
+            checkFirstContainer()
         End If
     End Sub
 
