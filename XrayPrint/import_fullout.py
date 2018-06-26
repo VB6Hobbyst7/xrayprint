@@ -337,10 +337,10 @@ def convert_txt_to_excel(text_file_name):
 def create_order(booking,line,agent):
 	secs_between_keys=0.01
 	pyautogui.press('f6')
-	pyautogui.typewrite(booking, interval=secs_between_keys)
-
-	if len(booking) > 17 :
+	if len(booking) >= 17 :
 		booking = booking[-17:]
+
+	pyautogui.typewrite(booking, interval=secs_between_keys)
 	# if booking >= 17 char ,No need to prees tab.
 	if len(booking) < 17 :
 		pyautogui.press('tab')
