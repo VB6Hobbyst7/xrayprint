@@ -245,6 +245,8 @@ Public Class Form1
         Dim vNewPosition As String
         If vPosition.Length = 9 Then
             vNewPosition = Mid(vPosition, 1, 3) & "-" & Mid(vPosition, 4, 2) & "-" & Mid(vPosition, 6, 2)
+        ElseIf vPosition.Length = 7 Then
+            vNewPosition = Mid(vPosition, 1, 3) & "-" & Mid(vPosition, 4, 2)
         Else
             vNewPosition = vPosition
         End If
