@@ -252,10 +252,10 @@ Public Class Form1
         End If
         xlsWorkSheet.Cells(5, 2) = Now()
         xlsWorkSheet.Cells(6, 2) = vType
-        xlsWorkSheet.Cells(7, 2) = vBooking
+        xlsWorkSheet.Cells(7, 2) = "'" & vBooking
         xlsWorkSheet.Cells(7, 10) = vPlate
         xlsWorkSheet.Cells(6, 10) = vTerminal
-        xlsWorkSheet.Cells(9, 10) = vNewPosition
+        xlsWorkSheet.Cells(9, 10) = "'" & vNewPosition
 
         xlsWorkSheet.Cells(9, 2) = vContainer
 

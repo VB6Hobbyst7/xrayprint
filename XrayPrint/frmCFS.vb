@@ -501,7 +501,7 @@ Public Class frmCFS
             .Cells(9, 3) = lblVesselCode.Text.Trim & "/" & lblVesselName.Text.Trim & " (Voy:" & lblVoy.Text & ")"
             .Cells(10, 3) = txtReceiveDate.Text
             'Container
-            .Cells(12, 3) = lblBL.Text
+            .Cells(12, 3) = "'" & lblBL.Text
             .Cells(14, 3) = get_containers()
 
             'goods
