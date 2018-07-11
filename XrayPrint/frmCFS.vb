@@ -494,7 +494,7 @@ Public Class frmCFS
             'Status
             .Cells(7, 11) = lblStatus.Text
             .Cells(8, 10) = IIf(lblStatus.Text = "LCL", "Demurrage  for LCL", "")
-            .Cells(9, 11) = IIf(lblStatus.Text = "LCL", txtExpire.Text, "")
+            .Cells(9, 11) = "'" & IIf(lblStatus.Text = "LCL", txtExpire.Text, "")
             'Consignee
             .Cells(6, 3) = lblConsigneeName.Text
             .Cells(7, 3) = txtConsigneeAddr.Text
