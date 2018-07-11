@@ -22,6 +22,7 @@ Partial Class frmManifestImport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmManifestImport))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.chkCheckFirst = New System.Windows.Forms.CheckBox()
         Me.lblGross = New System.Windows.Forms.Label()
@@ -643,7 +644,9 @@ Partial Class frmManifestImport
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmManifestImport"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Import Container"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
