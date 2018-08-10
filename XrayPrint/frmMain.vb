@@ -303,6 +303,11 @@ Public Class Form1
                                             <td>Terminal:</td>
                                             <td>" & IIf(rbA0.Checked, "A0", "B1") & "</td>
                                         </tr>
+                                        
+                                        <tr>
+                                            <td>Use Terminal Truck:</td>
+                                            <td>" & IIf(chkTerminalTruck.Checked, "Yes", "No") & "</td>
+                                        </tr>
 
                                         <tr>
                                             <td>Truck plate:</td>
@@ -355,7 +360,7 @@ Public Class Form1
                              "",
                              "")
             Else
-                MsgBox("Not found mail_list.txt , syytem will not send mail")
+                MsgBox("Not found mail_list.txt , system will not send mail")
             End If
 
         End If
@@ -511,5 +516,13 @@ Public Class Form1
 
     Private Sub btnImportFullout_Click(sender As Object, e As EventArgs) Handles btnImportFullout.Click
         frmManifestImport.Show()
+    End Sub
+
+    Private Sub chkTerminalTruck_CheckedChanged(sender As Object, e As EventArgs) Handles chkTerminalTruck.CheckedChanged
+        If chkTerminalTruck.Checked Then
+            txtPlateNumber.Text = "Terminal Truck"
+        Else
+            txtPlateNumber.Text = ""
+        End If
     End Sub
 End Class

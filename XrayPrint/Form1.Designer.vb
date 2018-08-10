@@ -54,6 +54,7 @@ Partial Class Form1
         Me.lblRecord = New System.Windows.Forms.Label()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.btnImportFullout = New System.Windows.Forms.Button()
+        Me.chkTerminalTruck = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -136,6 +137,7 @@ Partial Class Form1
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.chkTerminalTruck)
         Me.GroupBox2.Controls.Add(Me.txtSpecial)
         Me.GroupBox2.Controls.Add(Me.Label8)
         Me.GroupBox2.Controls.Add(Me.chkSendmail)
@@ -159,16 +161,16 @@ Partial Class Form1
         '
         'txtSpecial
         '
-        Me.txtSpecial.Location = New System.Drawing.Point(12, 304)
+        Me.txtSpecial.Location = New System.Drawing.Point(9, 322)
         Me.txtSpecial.Multiline = True
         Me.txtSpecial.Name = "txtSpecial"
-        Me.txtSpecial.Size = New System.Drawing.Size(190, 163)
+        Me.txtSpecial.Size = New System.Drawing.Size(190, 150)
         Me.txtSpecial.TabIndex = 19
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(10, 282)
+        Me.Label8.Location = New System.Drawing.Point(10, 305)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(91, 13)
         Me.Label8.TabIndex = 18
@@ -179,7 +181,7 @@ Partial Class Form1
         Me.chkSendmail.AutoSize = True
         Me.chkSendmail.Checked = True
         Me.chkSendmail.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkSendmail.Location = New System.Drawing.Point(13, 262)
+        Me.chkSendmail.Location = New System.Drawing.Point(13, 285)
         Me.chkSendmail.Name = "chkSendmail"
         Me.chkSendmail.Size = New System.Drawing.Size(79, 17)
         Me.chkSendmail.TabIndex = 17
@@ -273,7 +275,7 @@ Partial Class Form1
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(9, 223)
+        Me.btnPrint.Location = New System.Drawing.Point(9, 246)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(193, 35)
         Me.btnPrint.TabIndex = 9
@@ -283,7 +285,7 @@ Partial Class Form1
         'txtPlateNumber
         '
         Me.txtPlateNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPlateNumber.Location = New System.Drawing.Point(9, 183)
+        Me.txtPlateNumber.Location = New System.Drawing.Point(9, 206)
         Me.txtPlateNumber.Name = "txtPlateNumber"
         Me.txtPlateNumber.Size = New System.Drawing.Size(194, 29)
         Me.txtPlateNumber.TabIndex = 8
@@ -291,7 +293,7 @@ Partial Class Form1
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 167)
+        Me.Label5.Location = New System.Drawing.Point(6, 190)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(103, 13)
         Me.Label5.TabIndex = 7
@@ -366,6 +368,16 @@ Partial Class Form1
         Me.btnImportFullout.Text = "Import Full-out"
         Me.btnImportFullout.UseVisualStyleBackColor = True
         '
+        'chkTerminalTruck
+        '
+        Me.chkTerminalTruck.AutoSize = True
+        Me.chkTerminalTruck.Location = New System.Drawing.Point(14, 163)
+        Me.chkTerminalTruck.Name = "chkTerminalTruck"
+        Me.chkTerminalTruck.Size = New System.Drawing.Size(111, 17)
+        Me.chkTerminalTruck.TabIndex = 20
+        Me.chkTerminalTruck.Text = "Use terminal truck"
+        Me.chkTerminalTruck.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -426,4 +438,5 @@ Partial Class Form1
     Friend WithEvents txtSpecial As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents btnImportFullout As Button
+    Friend WithEvents chkTerminalTruck As CheckBox
 End Class
