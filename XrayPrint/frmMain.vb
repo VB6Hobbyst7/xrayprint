@@ -8,6 +8,14 @@ Imports Microsoft.Office
 Imports outlook = Microsoft.Office.Interop.Outlook
 
 Public Class Form1
+
+    Dim vCurrentLine As String
+    Dim vCurrentAgent As String
+    Dim vCurrentISO As String
+    Dim vCurrentSize As String
+    Dim vCurrentVessel As String
+    Dim vCurrentVoy As String
+
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
         Dim vBooking As String
         If txtContainer.Text <> "" Then
@@ -220,11 +228,18 @@ Public Class Form1
         lblLocation.Text = DataGridView1.Item(2, i).Value
         lblBooking.Text = DataGridView1.Item(3, i).Value
 
+
+
         Dim vAgent As String = Trim(DataGridView1.Item(5, i).Value)
         rbA0.Checked = True
         rbB1.Checked = IIf(vAgent = "MSK1" Or vAgent = "MSC", True, False)
         'rbB1.Checked = IIf(vAgent = "MSC", True, False)
-
+        vCurrentAgent = vAgent
+        vCurrentLine = DataGridView1.Item(4, i).Value
+        vCurrentISO = DataGridView1.Item(6, i).Value
+        vCurrentSize = DataGridView1.Item(7, i).Value
+        vCurrentVessel = DataGridView1.Item(9, i).Value
+        vCurrentVoy = DataGridView1.Item(11, i).Value
         'MsgBox(selectedCellCount)
     End Sub
 
@@ -339,7 +354,7 @@ Public Class Form1
 
         print_excel()
 
-        txtPlateNumber.Text = ""
+
 
         'SendKeys Email
         If chkSendmail.Checked Then
@@ -365,8 +380,58 @@ Public Class Form1
 
         End If
 
+        'save to Container import
+        saveContainer(lblBooking.Text.Trim, IIf(rbA0.Checked, "A0", "B1"),
+                      vCurrentLine.Trim, vCurrentAgent.Trim, "",
+                      lblContainer.Text.Trim, vCurrentISO.Trim, vCurrentSize.Trim,
+                      vCurrentVessel.Trim, vCurrentVoy.Trim,
+                      txtPlateNumber.Text.Trim.ToUpper, IIf(rbXray.Checked, "X-RAY", "เปิดตรวจ"))
+
+
+        txtPlateNumber.Text = ""
     End Sub
 
+    Friend Sub saveContainer(ByVal booking As String, terminal As String, line As String,
+                           agent As String, consignee As String, container As String,
+                             container_type As String, container_size As String,
+                             vessel As String, voy As String, truck_number As String,
+                             inspect_type As String)
+
+        Try
+            Dim cmd As New SqlCommand
+            Dim sqlAddBooking As String
+
+            'OdbcConnection
+            Dim con As SqlConnection
+            Dim connectionString As String
+            connectionString = "Server=192.168.10.53;Database=GoodsTransit;User Id=goods;
+                            Password=password;"
+            con = New SqlConnection(connectionString)
+            con.Open()
+
+            sqlAddBooking = " insert into container_inspection 
+                        (issue_date,booking,terminal,line,agent,consignee,
+                        container,container_type,container_size,
+                        vessel_name,voy,email_date,truck_number,inspect_type)
+                        values (getdate(),'" & booking & "','" & terminal & "','" & line & "'," &
+                            "'" & agent & "','" & consignee & "'," &
+                            "'" & container & "','" & container_type & "'," & container_size & "," &
+                            "'" & vessel & "','" & voy & "',getdate(),'" & truck_number & "','" & inspect_type & "')"
+
+            With cmd
+                .CommandType = CommandType.Text
+                .Connection = con
+                .CommandTimeout = 100
+                .CommandText = sqlAddBooking
+                Dim row As Integer = .ExecuteNonQuery()
+            End With
+
+            con.Close()
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
 
     Sub print_excel()
         Dim strFile As String = "FastlaneTemplate.xlsx"

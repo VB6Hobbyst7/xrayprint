@@ -203,6 +203,86 @@ Public Class frmManifestImport
 
     End Function
 
+
+    Friend Sub saveBooking(ByVal booking As String, terminal As String, line As String,
+                           agent As String, consignee As String)
+
+        Try
+            Dim cmd As New SqlCommand
+            Dim sqlAddBooking As String
+
+            'OdbcConnection
+            Dim con As SqlConnection
+            Dim connectionString As String
+            connectionString = "Server=192.168.10.53;Database=GoodsTransit;User Id=goods;
+                            Password=password;"
+            con = New SqlConnection(connectionString)
+            con.Open()
+
+            sqlAddBooking = " insert into booking_import 
+                        (booking,terminal,line,agent,consignee,issue_date)
+                        values ('" & booking & "','" & terminal & "','" & line & "'," &
+                        "'" & agent & "','" & consignee & "',getdate())"
+
+            With cmd
+                .CommandType = CommandType.Text
+                .Connection = con
+                .CommandTimeout = 100
+                .CommandText = sqlAddBooking
+                Dim row As Integer = .ExecuteNonQuery()
+            End With
+
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Friend Sub saveContainer(ByVal booking As String, terminal As String, line As String,
+                           agent As String, consignee As String, container As String,
+                             container_type As String, container_size As String,
+                             vessel As String, voy As String, truck_number As String,
+                             inspect_type As String)
+
+        Try
+            Dim cmd As New SqlCommand
+            Dim sqlAddBooking As String
+
+            'OdbcConnection
+            Dim con As SqlConnection
+            Dim connectionString As String
+            connectionString = "Server=192.168.10.53;Database=GoodsTransit;User Id=goods;
+                            Password=password;"
+            con = New SqlConnection(connectionString)
+            con.Open()
+
+            sqlAddBooking = " insert into booking_import 
+                        (issue_date,booking,terminal,line,agent,consignee,
+                        container,container_type,container_size,
+                        vessel,voy,email_date,truck_number,inspect_type)
+                        values (getdate(),'" & booking & "','" & terminal & "','" & line & "'," &
+                        "'" & agent & "','" & consignee & "'," &
+                        "'" & container & "','" & container_type & "','" & container_size & "'," &
+                        "'" & vessel & "','" & voy & "',getdate(),'" & truck_number & "','" & inspect_type & "')"
+
+            With cmd
+                .CommandType = CommandType.Text
+                .Connection = con
+                .CommandTimeout = 100
+                .CommandText = sqlAddBooking
+                Dim row As Integer = .ExecuteNonQuery()
+            End With
+
+            con.Close()
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+
+
+
     Private Sub btnGetData_Click(sender As Object, e As EventArgs) Handles btnGetData.Click
         Dim vBooking As String
         vBooking = txtBooking.Text.Trim.ToUpper
@@ -398,6 +478,16 @@ tag_total:
         If chkAddress.Checked Then
             RunCommandCom("execute_address.bat", "", False)
         End If
+
+        'Save data to Booking_Import table
+        Dim vTerminal As String = "A0"
+        Dim vConsignee As String = Trim(DataGridView1.Item(5, 0).Value)
+        If txtAgent.Text.Trim = "" Or txtAgent.Text.Contains("1") Then
+            vTerminal = "B1"
+        End If
+
+        saveBooking(txtBooking.Text.Trim.ToUpper, vTerminal, txtLine.Text.Trim,
+                        txtAgent.Text.Trim, vConsignee)
     End Sub
 
     Public Shared Sub createFullOutText(dt As DataTable, vLine As String, vAgent As String,
