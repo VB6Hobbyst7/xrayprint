@@ -385,7 +385,7 @@ Public Class Form1
                       vCurrentLine.Trim, vCurrentAgent.Trim, "",
                       lblContainer.Text.Trim, vCurrentISO.Trim, vCurrentSize.Trim,
                       vCurrentVessel.Trim, vCurrentVoy.Trim,
-                      txtPlateNumber.Text.Trim.ToUpper, IIf(rbXray.Checked, "X-RAY", "เปิดตรวจ"))
+                      txtPlateNumber.Text.Trim.ToUpper, IIf(rbXray.Checked, "X-RAY", "INSPECT"))
 
 
         txtPlateNumber.Text = ""
@@ -589,5 +589,9 @@ Public Class Form1
         Else
             txtPlateNumber.Text = ""
         End If
+    End Sub
+
+    Private Sub btnReport_Click(sender As Object, e As EventArgs) Handles btnReport.Click
+        frmReport.Show()
     End Sub
 End Class

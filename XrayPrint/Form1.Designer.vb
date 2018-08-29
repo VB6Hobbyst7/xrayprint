@@ -32,6 +32,7 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkTerminalTruck = New System.Windows.Forms.CheckBox()
         Me.txtSpecial = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.chkSendmail = New System.Windows.Forms.CheckBox()
@@ -54,7 +55,7 @@ Partial Class Form1
         Me.lblRecord = New System.Windows.Forms.Label()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.btnImportFullout = New System.Windows.Forms.Button()
-        Me.chkTerminalTruck = New System.Windows.Forms.CheckBox()
+        Me.btnReport = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -158,6 +159,16 @@ Partial Class Form1
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Fast Lane Print"
+        '
+        'chkTerminalTruck
+        '
+        Me.chkTerminalTruck.AutoSize = True
+        Me.chkTerminalTruck.Location = New System.Drawing.Point(14, 163)
+        Me.chkTerminalTruck.Name = "chkTerminalTruck"
+        Me.chkTerminalTruck.Size = New System.Drawing.Size(111, 17)
+        Me.chkTerminalTruck.TabIndex = 20
+        Me.chkTerminalTruck.Text = "Use terminal truck"
+        Me.chkTerminalTruck.UseVisualStyleBackColor = True
         '
         'txtSpecial
         '
@@ -368,21 +379,21 @@ Partial Class Form1
         Me.btnImportFullout.Text = "Import Full-out"
         Me.btnImportFullout.UseVisualStyleBackColor = True
         '
-        'chkTerminalTruck
+        'btnReport
         '
-        Me.chkTerminalTruck.AutoSize = True
-        Me.chkTerminalTruck.Location = New System.Drawing.Point(14, 163)
-        Me.chkTerminalTruck.Name = "chkTerminalTruck"
-        Me.chkTerminalTruck.Size = New System.Drawing.Size(111, 17)
-        Me.chkTerminalTruck.TabIndex = 20
-        Me.chkTerminalTruck.Text = "Use terminal truck"
-        Me.chkTerminalTruck.UseVisualStyleBackColor = True
+        Me.btnReport.Location = New System.Drawing.Point(508, 60)
+        Me.btnReport.Name = "btnReport"
+        Me.btnReport.Size = New System.Drawing.Size(157, 40)
+        Me.btnReport.TabIndex = 6
+        Me.btnReport.Text = "Report"
+        Me.btnReport.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(919, 502)
+        Me.Controls.Add(Me.btnReport)
         Me.Controls.Add(Me.btnImportFullout)
         Me.Controls.Add(Me.lblRecord)
         Me.Controls.Add(Me.Label4)
@@ -439,4 +450,5 @@ Partial Class Form1
     Friend WithEvents Label8 As Label
     Friend WithEvents btnImportFullout As Button
     Friend WithEvents chkTerminalTruck As CheckBox
+    Friend WithEvents btnReport As Button
 End Class
