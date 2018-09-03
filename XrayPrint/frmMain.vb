@@ -15,6 +15,7 @@ Public Class Form1
     Dim vCurrentSize As String
     Dim vCurrentVessel As String
     Dim vCurrentVoy As String
+    Dim vCurrentConsignee As String
 
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
         Dim vBooking As String
@@ -105,7 +106,8 @@ Public Class Form1
                 BOOKLIST.MVV247 as vessel_type,
                 BOOKLIST.RSIN01 as voy_in, 
                 BOOKLIST.RSUT01 as voy_out, 
-                BOOKLIST.OP0103 
+                BOOKLIST.OP0103,
+                BOOKLIST.RKNMD9 as consignee
                 FROM S2114C2V.LCB1DAT.BOOKLIST BOOKLIST
                 where BOOKLIST.ORRF93 = ? "
 
@@ -179,7 +181,8 @@ Public Class Form1
                 BOOKLIST.MVV247 as vessel_type,
                 BOOKLIST.RSIN01 as voy_in, 
                 BOOKLIST.RSUT01 as voy_out, 
-                BOOKLIST.OP0103 
+                BOOKLIST.OP0103,
+                BOOKLIST.RKNMD9 as consignee
                 FROM S2114C2V.LCB1DAT.BOOKLIST BOOKLIST
                 where BOOKLIST.CNID94 = ? "
 
@@ -240,6 +243,7 @@ Public Class Form1
         vCurrentSize = DataGridView1.Item(7, i).Value
         vCurrentVessel = DataGridView1.Item(9, i).Value
         vCurrentVoy = DataGridView1.Item(11, i).Value
+        vCurrentConsignee = DataGridView1.Item(14, i).Value
         'MsgBox(selectedCellCount)
     End Sub
 
@@ -382,10 +386,10 @@ Public Class Form1
 
         'save to Container import
         saveContainer(lblBooking.Text.Trim, IIf(rbA0.Checked, "A0", "B1"),
-                      vCurrentLine.Trim, vCurrentAgent.Trim, "",
+                      vCurrentLine.Trim, vCurrentAgent.Trim, vCurrentConsignee.Trim,
                       lblContainer.Text.Trim, vCurrentISO.Trim, vCurrentSize.Trim,
                       vCurrentVessel.Trim, vCurrentVoy.Trim,
-                      txtPlateNumber.Text.Trim.ToUpper, IIf(rbXray.Checked, "X-RAY", "INSPECT"))
+                      txtPlateNumber.Text.Trim.ToUpper, IIf(rbXray.Checked, "X-RAY", "INSPECT"), txtSpecial.Text.Trim)
 
 
         txtPlateNumber.Text = ""
@@ -395,7 +399,7 @@ Public Class Form1
                            agent As String, consignee As String, container As String,
                              container_type As String, container_size As String,
                              vessel As String, voy As String, truck_number As String,
-                             inspect_type As String)
+                             inspect_type As String, Optional special_request As String = "")
 
         Try
             Dim cmd As New SqlCommand
@@ -412,11 +416,11 @@ Public Class Form1
             sqlAddBooking = " insert into container_inspection 
                         (issue_date,booking,terminal,line,agent,consignee,
                         container,container_type,container_size,
-                        vessel_name,voy,email_date,truck_number,inspect_type)
+                        vessel_name,voy,email_date,truck_number,inspect_type,special_request)
                         values (getdate(),'" & booking & "','" & terminal & "','" & line & "'," &
                             "'" & agent & "','" & consignee & "'," &
                             "'" & container & "','" & container_type & "'," & container_size & "," &
-                            "'" & vessel & "','" & voy & "',getdate(),'" & truck_number & "','" & inspect_type & "')"
+                            "'" & vessel & "','" & voy & "',getdate(),'" & truck_number & "','" & inspect_type & "','" & special_request & "')"
 
             With cmd
                 .CommandType = CommandType.Text
