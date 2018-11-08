@@ -825,4 +825,12 @@ tag_total:
             SendKeys.Send("{TAB}")
         End If
     End Sub
+
+
+
+    Private Sub chkAddress_KeyPress(sender As Object, e As KeyPressEventArgs) Handles chkAddress.KeyPress
+        If e.KeyChar = Chr(13) Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
 End Class
