@@ -18,6 +18,11 @@ Public Class Form1
     Dim vCurrentConsignee As String
 
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
+
+        vCurrentLine = ""
+        vCurrentAgent = ""
+        vCurrentConsignee = ""
+
         Dim vBooking As String
         If txtContainer.Text <> "" Then
             vBooking = getBooking(txtContainer.Text.Trim.ToUpper)
@@ -43,6 +48,7 @@ Public Class Form1
     End Sub
 
     Sub clear()
+
         txtContainer.Text = ""
         lblRecord.Text = ""
         txtPlateNumber.Text = ""
@@ -51,7 +57,13 @@ Public Class Form1
         rbA0.Checked = True
         rbXray.Checked = True
         txtSpecial.Text = ""
-        'DataGridView1.DataSource = Nothing
+
+        vCurrentLine = ""
+        vCurrentAgent = ""
+        vCurrentConsignee = ""
+        btnPrint.Enabled = False
+
+        DataGridView1.DataSource = Nothing
     End Sub
 
     Friend Function getContainers(ByVal booking As String) As DataTable
@@ -109,7 +121,7 @@ Public Class Form1
                 BOOKLIST.OP0103,
                 BOOKLIST.RKNMD9 as consignee
                 FROM S2114C2V.LCB1DAT.BOOKLIST BOOKLIST
-                where BOOKLIST.ORRF93 = ? "
+                where BOOKLIST.ORRF93 = ? and BOOKLIST.MVV247='VS'"
 
         ' Create an OleDbDataAdapter object
         Dim adapter As OdbcDataAdapter = New OdbcDataAdapter()
@@ -225,6 +237,13 @@ Public Class Form1
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
         'Dim selectedCellCount As String = DataGridView1.SelectedRows(0).Cells(0).ToString
+
+        vCurrentLine = ""
+        vCurrentAgent = ""
+        vCurrentConsignee = ""
+
+
+
         Dim i As Integer
         i = DataGridView1.CurrentRow.Index
         lblContainer.Text = DataGridView1.Item(0, i).Value
@@ -244,6 +263,9 @@ Public Class Form1
         vCurrentVessel = DataGridView1.Item(9, i).Value
         vCurrentVoy = DataGridView1.Item(11, i).Value
         vCurrentConsignee = DataGridView1.Item(14, i).Value
+
+        txtPlateNumber.Text = ""
+
         'MsgBox(selectedCellCount)
     End Sub
 
@@ -298,6 +320,11 @@ Public Class Form1
     End Sub
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+
+        If vCurrentLine.Trim = "" Or vCurrentAgent.Trim = "" Or vCurrentConsignee.Trim = "" Then
+            MsgBox("Not found Line,Agent or Consignee information , please try again", MsgBoxStyle.Critical, "No Data")
+            Exit Sub
+        End If
 
         start_print_process()
     End Sub
@@ -471,6 +498,7 @@ Public Class Form1
 
     Private Sub txtBooking_TextChanged(sender As Object, e As EventArgs) Handles txtBooking.TextChanged
         txtContainer.Text = ""
+        DataGridView1.DataSource = Nothing
     End Sub
 
     Private Sub txtBooking_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtBooking.KeyPress
@@ -500,6 +528,7 @@ Public Class Form1
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        txtBooking.Text = ""
         clear()
         'setEmailSend("Test Subject", "<b1><u>Test Body</u></b1>", "chutchai@lcb1.com", "", "", "test Display")
     End Sub
