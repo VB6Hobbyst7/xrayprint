@@ -61,9 +61,9 @@ Public Class Form1
         vCurrentLine = ""
         vCurrentAgent = ""
         vCurrentConsignee = ""
-        btnPrint.Enabled = False
+        'btnPrint.Enabled = False
 
-        DataGridView1.DataSource = Nothing
+        'DataGridView1.DataSource = Nothing
     End Sub
 
     Friend Function getContainers(ByVal booking As String) As DataTable
@@ -264,7 +264,7 @@ Public Class Form1
         vCurrentVoy = DataGridView1.Item(11, i).Value
         vCurrentConsignee = DataGridView1.Item(14, i).Value
 
-        txtPlateNumber.Text = ""
+        ' txtPlateNumber.Text = ""
 
         'MsgBox(selectedCellCount)
     End Sub
@@ -321,10 +321,10 @@ Public Class Form1
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
 
-        If vCurrentLine.Trim = "" Or vCurrentAgent.Trim = "" Or vCurrentConsignee.Trim = "" Then
-            MsgBox("Not found Line,Agent or Consignee information , please try again", MsgBoxStyle.Critical, "No Data")
-            Exit Sub
-        End If
+        'If vCurrentLine.Trim = "" Or vCurrentAgent.Trim = "" Or vCurrentConsignee.Trim = "" Then
+        '    MsgBox("Not found Line,Agent or Consignee information , please try again", MsgBoxStyle.Critical, "No Data")
+        '    Exit Sub
+        'End If
 
         start_print_process()
     End Sub

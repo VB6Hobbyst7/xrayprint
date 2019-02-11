@@ -213,11 +213,11 @@ Partial Class frmManifestImport
         Me.chkAddress.AutoSize = True
         Me.chkAddress.Checked = True
         Me.chkAddress.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkAddress.Location = New System.Drawing.Point(180, 80)
+        Me.chkAddress.Location = New System.Drawing.Point(219, 79)
         Me.chkAddress.Name = "chkAddress"
-        Me.chkAddress.Size = New System.Drawing.Size(120, 17)
+        Me.chkAddress.Size = New System.Drawing.Size(121, 17)
         Me.chkAddress.TabIndex = 7
-        Me.chkAddress.Text = "Go to Address page"
+        Me.chkAddress.Text = "Go to Address Page"
         Me.chkAddress.UseVisualStyleBackColor = True
         '
         'txtDateUntil
@@ -231,7 +231,7 @@ Partial Class frmManifestImport
         '
         Me.txtShore.Location = New System.Drawing.Point(86, 77)
         Me.txtShore.Name = "txtShore"
-        Me.txtShore.Size = New System.Drawing.Size(88, 20)
+        Me.txtShore.Size = New System.Drawing.Size(127, 20)
         Me.txtShore.TabIndex = 6
         '
         'txtCarrier

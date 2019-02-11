@@ -281,6 +281,59 @@ Public Class frmManifestImport
     End Sub
 
 
+    Function getShoreNumber() As String
+
+        Try
+            Dim cmd As New SqlCommand
+            Dim sqlUpdate As String = ""
+            Dim sqlGetShoreNumber As String = ""
+
+            'OdbcConnection
+            Dim con As SqlConnection
+            Dim connectionString As String
+            connectionString = "Server=192.168.10.53;Database=GoodsTransit;User Id=goods;
+                            Password=password;"
+            con = New SqlConnection(connectionString)
+            con.Open()
+
+            Dim vYear As Integer
+            vYear = Date.Today.Year
+
+            sqlUpdate = "update shore_number
+                        set seq_number=seq_number+1
+                        where year = " & vYear.ToString
+            sqlGetShoreNumber = "select seq_number
+                                from shore_number
+                                where year = " & vYear.ToString
+
+            Dim returedShoreNumber As Integer = 0
+            With cmd
+                .CommandType = CommandType.Text
+                .Connection = con
+                .CommandTimeout = 100
+                .CommandText = sqlUpdate
+                Dim row As Integer = .ExecuteNonQuery()
+                If row > 0 Then
+                    .CommandText = sqlGetShoreNumber
+                    returedShoreNumber = .ExecuteScalar()
+                End If
+
+            End With
+            con.Close()
+            con.Dispose()
+
+            'convert year to Thai
+            Dim vYearThai As Integer
+            vYearThai = vYear + 543
+            'year_thai = year-543
+            Return vYearThai.ToString.Substring(2) & "CO-" & Format(returedShoreNumber, "00000")
+
+        Catch ex As Exception
+            Return "Error"
+        End Try
+
+
+    End Function
 
 
     Private Sub btnGetData_Click(sender As Object, e As EventArgs) Handles btnGetData.Click
@@ -289,6 +342,10 @@ Public Class frmManifestImport
         getContainer(vBooking)
 
         checkFirstContainer()
+
+
+        'Fill shore number in text box
+        txtShore.Text = getShoreNumber()
 
     End Sub
 
@@ -578,6 +635,7 @@ tag_total:
             getContainer(vBooking)
 
             checkFirstContainer()
+            txtShore.Text = getShoreNumber()
         End If
     End Sub
 
