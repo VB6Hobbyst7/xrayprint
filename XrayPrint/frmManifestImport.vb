@@ -63,7 +63,7 @@ Public Class frmManifestImport
             .CommandTimeout = 100
 
             .CommandText = sqlBooking
-            .Parameters.Add(New OdbcParameter("container", continer))
+            .Parameters.Add(New OdbcParameter("container", Trim(continer)))
 
         End With
 
@@ -117,8 +117,8 @@ Public Class frmManifestImport
 
             .CommandText = sqlBooking
             '.Parameters.Add(New OdbcParameter("containers", continerList))
-            .Parameters.Add(New OdbcParameter("callsign", callSign))
-            .Parameters.Add(New OdbcParameter("voy", voy))
+            .Parameters.Add(New OdbcParameter("callsign", Trim(callSign)))
+            .Parameters.Add(New OdbcParameter("voy", Trim(voy)))
 
         End With
 
@@ -574,8 +574,8 @@ tag_total:
                 vConsignee = Mid(vConsignee, 1, 18) & "/" & IIf(vShore = "", "Auto", vShore)
                 vConsignee = Mid(vConsignee, 1, 30)
 
-                strDetail = row("booking") &
-                    "|" & row("container") &
+                strDetail = Trim(row("booking")) &
+                    "|" & Trim(row("container")) &
                     "|" & vLine.Trim.ToUpper &
                     "|" & vAgent.Trim.ToUpper &
                     "|" & vConsignee &
