@@ -337,6 +337,16 @@ Public Class frmManifestImport
 
 
     Private Sub btnGetData_Click(sender As Object, e As EventArgs) Handles btnGetData.Click
+        'Added on March 24,2021 - To support copy BL and Clarify number from ePayment
+        'Format data : BL||Clarification number
+        Dim vClipboardTxt As String = ""
+        vClipboardTxt = Clipboard.GetText
+        If vClipboardTxt.Contains("|") Then
+            txtBooking.Text = vClipboardTxt.Split(New Char() {"|"c})(0)
+            txtCarrier.Text = vClipboardTxt.Split(New Char() {"|"c})(1)
+        End If
+        '--------------------------------------------------------------------------
+
         Dim vBooking As String
         vBooking = txtBooking.Text.Trim.ToUpper
         getContainer(vBooking)
@@ -346,6 +356,10 @@ Public Class frmManifestImport
 
         'Fill shore number in text box
         txtShore.Text = getShoreNumber()
+
+        If vClipboardTxt.Contains("|") Then
+            txtCarrier.Text = vClipboardTxt.Split(New Char() {"|"c})(1)
+        End If
 
     End Sub
 
