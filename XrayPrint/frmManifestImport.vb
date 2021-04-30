@@ -339,13 +339,22 @@ Public Class frmManifestImport
     Private Sub btnGetData_Click(sender As Object, e As EventArgs) Handles btnGetData.Click
         'Added on March 24,2021 - To support copy BL and Clarify number from ePayment
         'Format data : BL||Clarification number
+        lblCode.Text = ""
         Dim vClipboardTxt As String = ""
         vClipboardTxt = Clipboard.GetText
         If vClipboardTxt.Contains("|") Then
             txtBooking.Text = vClipboardTxt.Split(New Char() {"|"c})(0)
             txtCarrier.Text = vClipboardTxt.Split(New Char() {"|"c})(1)
+            'Added on April 30,2021 -- To support address code
+            If vClipboardTxt.Split(New Char() {"|"c}).Length = 3 Then
+                lblCode.Text = vClipboardTxt.Split(New Char() {"|"c})(2)
+            Else
+                lblCode.Text = ""
+            End If
+
         End If
         '--------------------------------------------------------------------------
+        Application.DoEvents()
 
         Dim vBooking As String
         vBooking = txtBooking.Text.Trim.ToUpper
@@ -378,7 +387,7 @@ Public Class frmManifestImport
                 'Make container.txt
                 createFullOutText(dtBooking, txtLine.Text.Trim, txtAgent.Text.Trim,
                           txtDateUntil.Text.Trim.ToUpper, txtCarrier.Text.Trim.ToUpper,
-                          txtShore.Text.Trim.ToUpper, "container.txt")
+                          txtShore.Text.Trim.ToUpper, lblCode.Text.Trim.ToUpper, "container.txt")
                 'execute bat file
                 RunCommandCom("execute_check.bat", "", False)
                 txtDateUntil.Select()
@@ -544,7 +553,7 @@ tag_total:
     Private Sub btnFullout_Click(sender As Object, e As EventArgs) Handles btnFullout.Click
         createFullOutText(dtBooking, txtLine.Text.Trim, txtAgent.Text.Trim,
                           txtDateUntil.Text.Trim.ToUpper, txtCarrier.Text.Trim.ToUpper,
-                          txtShore.Text.Trim.ToUpper)
+                          txtShore.Text.Trim.ToUpper, lblCode.Text.Trim.ToUpper)
         RunCommandCom("execute_fullout.bat", "", False)
         If chkAddress.Checked Then
             RunCommandCom("execute_address.bat", "", False)
@@ -561,8 +570,10 @@ tag_total:
                         txtAgent.Text.Trim, vConsignee)
     End Sub
 
+    'Modify on April 30,2021 -- To pass Address Code to function
     Public Shared Sub createFullOutText(dt As DataTable, vLine As String, vAgent As String,
                                         vDateUntil As String, vCarrier As String, vShore As String,
+                                        Optional vCode As String = "",
                                         Optional path As String = "fullout.txt")
         'Dim path As String = "fullout.txt"
 
@@ -588,13 +599,23 @@ tag_total:
                 vConsignee = Mid(vConsignee, 1, 18) & "/" & IIf(vShore = "", "Auto", vShore)
                 vConsignee = Mid(vConsignee, 1, 30)
 
+                'strDetail = Trim(row("booking")) &
+                '    "|" & Trim(row("container")) &
+                '    "|" & vLine.Trim.ToUpper &
+                '    "|" & vAgent.Trim.ToUpper &
+                '    "|" & vConsignee &
+                '    "|" & IIf(vFirst, vDateUntil, "") &
+                '    "|" & vCarrier
+
                 strDetail = Trim(row("booking")) &
                     "|" & Trim(row("container")) &
                     "|" & vLine.Trim.ToUpper &
                     "|" & vAgent.Trim.ToUpper &
                     "|" & vConsignee &
                     "|" & IIf(vFirst, vDateUntil, "") &
-                    "|" & vCarrier
+                    "|" & vCarrier &
+                    "|" & vCode
+
                 sw.WriteLine(strDetail)
                 vFirst = False
             Next row

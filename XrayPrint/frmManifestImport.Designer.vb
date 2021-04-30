@@ -77,6 +77,7 @@ Partial Class frmManifestImport
         Me.lblDwellRecord = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.dgDwell = New System.Windows.Forms.DataGridView()
+        Me.lblCode = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -94,6 +95,7 @@ Partial Class frmManifestImport
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.lblCode)
         Me.GroupBox1.Controls.Add(Me.chkCheckFirst)
         Me.GroupBox1.Controls.Add(Me.lblGross)
         Me.GroupBox1.Controls.Add(Me.lblPackage)
@@ -126,7 +128,7 @@ Partial Class frmManifestImport
         Me.lblGross.AutoSize = True
         Me.lblGross.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGross.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblGross.Location = New System.Drawing.Point(381, 68)
+        Me.lblGross.Location = New System.Drawing.Point(268, 68)
         Me.lblGross.Name = "lblGross"
         Me.lblGross.Size = New System.Drawing.Size(30, 25)
         Me.lblGross.TabIndex = 6
@@ -146,7 +148,7 @@ Partial Class frmManifestImport
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(305, 77)
+        Me.Label11.Location = New System.Drawing.Point(192, 77)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(80, 13)
         Me.Label11.TabIndex = 4
@@ -635,6 +637,17 @@ Partial Class frmManifestImport
         Me.dgDwell.Size = New System.Drawing.Size(533, 214)
         Me.dgDwell.TabIndex = 10
         '
+        'lblCode
+        '
+        Me.lblCode.AutoSize = True
+        Me.lblCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCode.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblCode.Location = New System.Drawing.Point(442, 74)
+        Me.lblCode.Name = "lblCode"
+        Me.lblCode.Size = New System.Drawing.Size(41, 16)
+        Me.lblCode.TabIndex = 8
+        Me.lblCode.Text = "Code"
+        '
         'frmManifestImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -728,4 +741,5 @@ Partial Class frmManifestImport
     Friend WithEvents txtDeliver As TextBox
     Friend WithEvents Label12 As Label
     Friend WithEvents chkCheckFirst As CheckBox
+    Friend WithEvents lblCode As Label
 End Class
