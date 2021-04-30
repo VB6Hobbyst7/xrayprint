@@ -656,6 +656,9 @@ tag_total:
         lblTotal7Day.Text = "0"
         lblTotal14Day.Text = "0"
         lblTotal15Day.Text = "0"
+        'Add on April 30,2021 
+        lblCode.Text = ""
+
         ' dgItem.DataSource = Nothing
         If File.Exists("fullout.txt") Then
             File.Delete("fullout.txt")

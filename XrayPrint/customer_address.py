@@ -260,25 +260,27 @@ def main():
 				pyautogui.press('enter')
 
 				#Added on April 30,2021 -- To input address code direct to CTCS
-				pyautogui.typewrite(code, interval=secs_between_keys)
-				pyautogui.press('enter')
+				if not code == '' :
+					#code is available
+					pyautogui.typewrite(code, interval=secs_between_keys)
+					pyautogui.press('enter')
 				#End Code
-
-				#To search Address by using company name with *
-				#pyautogui.press('f4')
-				#pyautogui.hotkey('shift', 'f2')
-				#pyautogui.press('down')
-				#pyautogui.press('down')
-				## remark2 = remark.split('/')[0] -- 
-				#remark3 = remark.split('/')[0]
-				#remark_split = remark3.split(' ')
-				#if len(remark_split) > 1:
-				#	remark2 = '%s %s' % (remark_split[0],remark_split[1])
-				#else :
-				#	remark2 = remark_split[0]
-				#pyautogui.typewrite('%s*' % remark2[:10], interval=secs_between_keys)
-				#pyautogui.press('enter')
-				#End address search
+				else :
+					#To search Address by using company name with *
+					pyautogui.press('f4')
+					pyautogui.hotkey('shift', 'f2')
+					pyautogui.press('down')
+					pyautogui.press('down')
+					## remark2 = remark.split('/')[0] -- 
+					remark3 = remark.split('/')[0]
+					remark_split = remark3.split(' ')
+					if len(remark_split) > 1:
+						remark2 = '%s %s' % (remark_split[0],remark_split[1])
+					else :
+						remark2 = remark_split[0]
+					pyautogui.typewrite('%s*' % remark2[:10], interval=secs_between_keys)
+					pyautogui.press('enter')
+					#End address search
 
 				print ('======Finished=======')
 				sys.exit()
