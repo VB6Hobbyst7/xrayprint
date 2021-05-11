@@ -340,16 +340,21 @@ Public Class frmManifestImport
         'Added on March 24,2021 - To support copy BL and Clarify number from ePayment
         'Format data : BL||Clarification number
         lblCode.Text = ""
+        lblPaidUtil.Text = ""
+
         Dim vClipboardTxt As String = ""
         vClipboardTxt = Clipboard.GetText
         If vClipboardTxt.Contains("|") Then
             txtBooking.Text = vClipboardTxt.Split(New Char() {"|"c})(0)
             txtCarrier.Text = vClipboardTxt.Split(New Char() {"|"c})(1)
+            lblCode.Text = vClipboardTxt.Split(New Char() {"|"c})(2)
             'Added on April 30,2021 -- To support address code
-            If vClipboardTxt.Split(New Char() {"|"c}).Length = 3 Then
-                lblCode.Text = vClipboardTxt.Split(New Char() {"|"c})(2)
+            'Modify on May 11,2021 -- To add paid util date
+            If vClipboardTxt.Split(New Char() {"|"c}).Length = 4 Then
+                lblPaidUtil.Text = vClipboardTxt.Split(New Char() {"|"c})(3)
+                'lblCode.Text = vClipboardTxt.Split(New Char() {"|"c})(2)
             Else
-                lblCode.Text = ""
+                lblPaidUtil.Text = ""
             End If
 
         End If
@@ -358,6 +363,11 @@ Public Class frmManifestImport
 
         Dim vBooking As String
         vBooking = txtBooking.Text.Trim.ToUpper
+
+        If vBooking = "" Then
+            Exit Sub
+        End If
+
         getContainer(vBooking)
 
         checkFirstContainer()
@@ -368,6 +378,11 @@ Public Class frmManifestImport
 
         If vClipboardTxt.Contains("|") Then
             txtCarrier.Text = vClipboardTxt.Split(New Char() {"|"c})(1)
+        End If
+
+        'Added on May 10,2021 -- To enable auto run print receipt
+        If chkAutoPrint.Checked Then
+            btnFullout_Click(sender, e)
         End If
 
     End Sub
@@ -387,7 +402,7 @@ Public Class frmManifestImport
                 'Make container.txt
                 createFullOutText(dtBooking, txtLine.Text.Trim, txtAgent.Text.Trim,
                           txtDateUntil.Text.Trim.ToUpper, txtCarrier.Text.Trim.ToUpper,
-                          txtShore.Text.Trim.ToUpper, lblCode.Text.Trim.ToUpper, "container.txt")
+                          txtShore.Text.Trim.ToUpper, lblCode.Text.Trim.ToUpper, "", "container.txt")
                 'execute bat file
                 RunCommandCom("execute_check.bat", "", False)
                 txtDateUntil.Select()
@@ -404,6 +419,9 @@ Public Class frmManifestImport
         txtDateUntil.Text = ""
         txtCarrier.Text = ""
         txtShore.Text = ""
+
+        'Added on May 10,2021 -- To set default Date ultil
+        setDefaultDateUltil()
 
 
         dtBooking = getContainers(vBooking)
@@ -553,7 +571,7 @@ tag_total:
     Private Sub btnFullout_Click(sender As Object, e As EventArgs) Handles btnFullout.Click
         createFullOutText(dtBooking, txtLine.Text.Trim, txtAgent.Text.Trim,
                           txtDateUntil.Text.Trim.ToUpper, txtCarrier.Text.Trim.ToUpper,
-                          txtShore.Text.Trim.ToUpper, lblCode.Text.Trim.ToUpper)
+                          txtShore.Text.Trim.ToUpper, lblCode.Text.Trim.ToUpper, lblPaidUtil.Text.Trim.ToUpper)
         RunCommandCom("execute_fullout.bat", "", False)
         If chkAddress.Checked Then
             RunCommandCom("execute_address.bat", "", False)
@@ -574,6 +592,7 @@ tag_total:
     Public Shared Sub createFullOutText(dt As DataTable, vLine As String, vAgent As String,
                                         vDateUntil As String, vCarrier As String, vShore As String,
                                         Optional vCode As String = "",
+                                        Optional vPaidUntil As String = "",
                                         Optional path As String = "fullout.txt")
         'Dim path As String = "fullout.txt"
 
@@ -614,7 +633,8 @@ tag_total:
                     "|" & vConsignee &
                     "|" & IIf(vFirst, vDateUntil, "") &
                     "|" & vCarrier &
-                    "|" & vCode
+                    "|" & vCode &
+                    "|" & vPaidUntil
 
                 sw.WriteLine(strDetail)
                 vFirst = False
@@ -658,11 +678,18 @@ tag_total:
         lblTotal15Day.Text = "0"
         'Add on April 30,2021 
         lblCode.Text = ""
+        lblPaidUtil.Text = ""
 
+        'Added on May 10,2021 -- To set default Date ultil
+        setDefaultDateUltil()
         ' dgItem.DataSource = Nothing
         If File.Exists("fullout.txt") Then
             File.Delete("fullout.txt")
         End If
+    End Sub
+
+    Sub setDefaultDateUltil()
+        txtDateUntil.Text = Format(Now.AddYears(-1), "ddMMyy")
     End Sub
 
 
@@ -670,6 +697,11 @@ tag_total:
         If e.KeyChar = Chr(13) Then
             Dim vBooking As String
             vBooking = txtBooking.Text.Trim.ToUpper
+
+            If vBooking = "" Then
+                Exit Sub
+            End If
+
             getContainer(vBooking)
 
             checkFirstContainer()
@@ -928,5 +960,17 @@ tag_total:
         If e.KeyChar = Chr(13) Then
             SendKeys.Send("{TAB}")
         End If
+    End Sub
+
+    Private Sub txtDateUntil_GotFocus(sender As Object, e As EventArgs) Handles txtDateUntil.GotFocus
+        txtDateUntil.SelectAll()
+    End Sub
+
+    Private Sub txtCarrier_GotFocus(sender As Object, e As EventArgs) Handles txtCarrier.GotFocus
+        txtCarrier.SelectAll()
+    End Sub
+
+    Private Sub txtShore_GotFocus(sender As Object, e As EventArgs) Handles txtShore.GotFocus
+        txtShore.SelectAll()
     End Sub
 End Class

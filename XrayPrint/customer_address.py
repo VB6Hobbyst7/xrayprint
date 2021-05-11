@@ -252,6 +252,8 @@ def main():
 				carrier =data[6]
 				#Added on April 30,2021 -- To receipe Address code
 				code = data[7]
+				#Added on May 11,2021 -- To fill paid until datetime
+				paiduntil = data[8]
 
 				pyautogui.typewrite(booking, interval=secs_between_keys)
 				pyautogui.press('enter')
@@ -263,6 +265,15 @@ def main():
 				if not code == '' :
 					#code is available
 					pyautogui.typewrite(code, interval=secs_between_keys)
+
+					if not paiduntil == '' :
+						if len(code) < 12:
+							pyautogui.press('tab')
+						#remove /
+						paiduntil = paiduntil.replace('/','')
+						pyautogui.typewrite(paiduntil, interval=secs_between_keys)
+						pyautogui.press('+')
+
 					pyautogui.press('enter')
 				#End Code
 				else :
@@ -281,6 +292,12 @@ def main():
 					pyautogui.typewrite('%s*' % remark2[:10], interval=secs_between_keys)
 					pyautogui.press('enter')
 					#End address search
+
+				#Address details must show
+				
+				#Added on May 11,2021 -- To select all container (Shift+F2) , then Enter
+				pyautogui.hotkey('shift', 'f2')
+				pyautogui.press('enter')
 
 				print ('======Finished=======')
 				sys.exit()

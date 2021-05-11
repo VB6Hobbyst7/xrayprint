@@ -375,7 +375,11 @@ def enter_container(container,remark,untildate,carrier):
 	pyautogui.typewrite(remark, interval=secs_between_keys)
 	pyautogui.press('tab',2)
 	pyautogui.typewrite('Y', interval=secs_between_keys)
-	pyautogui.press('enter')
+	#pyautogui.press('enter')
+	#Added on May 10,2021 -- To replace enter to shift+F2 (2 times) , ig nore and accept any error
+	pyautogui.hotkey('shift', 'f5')
+	time.sleep(0.5)
+	pyautogui.hotkey('shift', 'f5')
 
 def enter_vgm(liner,vgm):
 	secs_between_keys=0.01

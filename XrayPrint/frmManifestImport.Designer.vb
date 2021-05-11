@@ -24,6 +24,7 @@ Partial Class frmManifestImport
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmManifestImport))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblCode = New System.Windows.Forms.Label()
         Me.chkCheckFirst = New System.Windows.Forms.CheckBox()
         Me.lblGross = New System.Windows.Forms.Label()
         Me.lblPackage = New System.Windows.Forms.Label()
@@ -33,6 +34,7 @@ Partial Class frmManifestImport
         Me.txtBooking = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkAutoPrint = New System.Windows.Forms.CheckBox()
         Me.chkAddress = New System.Windows.Forms.CheckBox()
         Me.txtDateUntil = New System.Windows.Forms.TextBox()
         Me.txtShore = New System.Windows.Forms.TextBox()
@@ -77,7 +79,7 @@ Partial Class frmManifestImport
         Me.lblDwellRecord = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.dgDwell = New System.Windows.Forms.DataGridView()
-        Me.lblCode = New System.Windows.Forms.Label()
+        Me.lblPaidUtil = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -95,6 +97,7 @@ Partial Class frmManifestImport
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.lblPaidUtil)
         Me.GroupBox1.Controls.Add(Me.lblCode)
         Me.GroupBox1.Controls.Add(Me.chkCheckFirst)
         Me.GroupBox1.Controls.Add(Me.lblGross)
@@ -110,6 +113,17 @@ Partial Class frmManifestImport
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "B/L Detail"
+        '
+        'lblCode
+        '
+        Me.lblCode.AutoSize = True
+        Me.lblCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCode.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblCode.Location = New System.Drawing.Point(442, 68)
+        Me.lblCode.Name = "lblCode"
+        Me.lblCode.Size = New System.Drawing.Size(32, 13)
+        Me.lblCode.TabIndex = 8
+        Me.lblCode.Text = "Code"
         '
         'chkCheckFirst
         '
@@ -191,6 +205,7 @@ Partial Class frmManifestImport
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.chkAutoPrint)
         Me.GroupBox2.Controls.Add(Me.chkAddress)
         Me.GroupBox2.Controls.Add(Me.txtDateUntil)
         Me.GroupBox2.Controls.Add(Me.txtShore)
@@ -209,6 +224,16 @@ Partial Class frmManifestImport
         Me.GroupBox2.TabIndex = 7
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Full-Out"
+        '
+        'chkAutoPrint
+        '
+        Me.chkAutoPrint.AutoSize = True
+        Me.chkAutoPrint.Location = New System.Drawing.Point(351, 77)
+        Me.chkAutoPrint.Name = "chkAutoPrint"
+        Me.chkAutoPrint.Size = New System.Drawing.Size(112, 17)
+        Me.chkAutoPrint.TabIndex = 9
+        Me.chkAutoPrint.Text = "Auto Print Receipt"
+        Me.chkAutoPrint.UseVisualStyleBackColor = True
         '
         'chkAddress
         '
@@ -275,7 +300,7 @@ Partial Class frmManifestImport
         Me.btnFullout.Enabled = False
         Me.btnFullout.Location = New System.Drawing.Point(350, 39)
         Me.btnFullout.Name = "btnFullout"
-        Me.btnFullout.Size = New System.Drawing.Size(113, 43)
+        Me.btnFullout.Size = New System.Drawing.Size(113, 35)
         Me.btnFullout.TabIndex = 8
         Me.btnFullout.Text = "Import to CTCS"
         Me.btnFullout.UseVisualStyleBackColor = True
@@ -637,16 +662,16 @@ Partial Class frmManifestImport
         Me.dgDwell.Size = New System.Drawing.Size(533, 214)
         Me.dgDwell.TabIndex = 10
         '
-        'lblCode
+        'lblPaidUtil
         '
-        Me.lblCode.AutoSize = True
-        Me.lblCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCode.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblCode.Location = New System.Drawing.Point(442, 74)
-        Me.lblCode.Name = "lblCode"
-        Me.lblCode.Size = New System.Drawing.Size(41, 16)
-        Me.lblCode.TabIndex = 8
-        Me.lblCode.Text = "Code"
+        Me.lblPaidUtil.AutoSize = True
+        Me.lblPaidUtil.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPaidUtil.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblPaidUtil.Location = New System.Drawing.Point(442, 83)
+        Me.lblPaidUtil.Name = "lblPaidUtil"
+        Me.lblPaidUtil.Size = New System.Drawing.Size(52, 13)
+        Me.lblPaidUtil.TabIndex = 9
+        Me.lblPaidUtil.Text = "Paid Until"
         '
         'frmManifestImport
         '
@@ -659,7 +684,7 @@ Partial Class frmManifestImport
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmManifestImport"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Import Container"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -742,4 +767,6 @@ Partial Class frmManifestImport
     Friend WithEvents Label12 As Label
     Friend WithEvents chkCheckFirst As CheckBox
     Friend WithEvents lblCode As Label
+    Friend WithEvents chkAutoPrint As CheckBox
+    Friend WithEvents lblPaidUtil As Label
 End Class
