@@ -344,7 +344,14 @@ Public Class frmManifestImport
 
         Dim vClipboardTxt As String = ""
         vClipboardTxt = Clipboard.GetText
+
+        'Added on May 13,2021 -- To clear clipboard data (version 1.0.0.38)
+        Clipboard.Clear()
+
         If vClipboardTxt.Contains("|") Then
+            'Added on May 13,2021 -- To clear clipboard data (version 1.0.0.38)
+            Clipboard.Clear()
+
             txtBooking.Text = vClipboardTxt.Split(New Char() {"|"c})(0)
             txtCarrier.Text = vClipboardTxt.Split(New Char() {"|"c})(1)
             lblCode.Text = vClipboardTxt.Split(New Char() {"|"c})(2)
