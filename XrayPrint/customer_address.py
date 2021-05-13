@@ -272,7 +272,8 @@ def main():
 						#remove /
 						paiduntil = paiduntil.replace('/','')
 						pyautogui.typewrite(paiduntil, interval=secs_between_keys)
-						pyautogui.press('+')
+						pyautogui.press('end')
+						pyautogui.press('enter')
 
 					pyautogui.press('enter')
 				#End Code
