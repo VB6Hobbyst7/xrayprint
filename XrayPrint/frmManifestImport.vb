@@ -696,7 +696,8 @@ tag_total:
     End Sub
 
     Sub setDefaultDateUltil()
-        txtDateUntil.Text = Format(Now.AddYears(-1), "ddMMyy")
+        'Remove on May 18,2021 -- To ignore default date ultil value
+        'txtDateUntil.Text = Format(Now.AddYears(-1), "ddMMyy")
     End Sub
 
 
@@ -931,9 +932,7 @@ tag_total:
 
 
 
-    Private Sub txtDateUntil_SizeChanged(sender As Object, e As EventArgs) Handles txtDateUntil.SizeChanged
 
-    End Sub
 
     Private Sub txtDateUntil_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtDateUntil.KeyPress
         If e.KeyChar = Chr(13) Then
